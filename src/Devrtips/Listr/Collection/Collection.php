@@ -1,11 +1,11 @@
 <?php
 
-namespace Devrtips\Listr;
+namespace Devrtips\Listr\Collection;
 
 use ArrayIterator;
 use IteratorAggregate;
 
-abstract class AbstractList implements IteratorAggregate
+class Collection implements IteratorAggregate
 {
 
     /**
@@ -26,9 +26,9 @@ abstract class AbstractList implements IteratorAggregate
     /**
      * Filter items from the given key value pair.
      *
-     * @param type $key
-     * @param type $value
-     * @return type
+     * @param string $key
+     * @param string $value
+     * @return self
      */
     public function where($key, $value)
     {
@@ -37,6 +37,17 @@ abstract class AbstractList implements IteratorAggregate
         });
 
         return $this;
+    }
+
+    /**
+     * Make Collection using given array.
+     *
+     * @param array $array
+     * @return self
+     */
+    public static function make(array $array)
+    {
+        return new static($array);
     }
 
     /**
@@ -50,8 +61,8 @@ abstract class AbstractList implements IteratorAggregate
     }
 
     /**
-     * Implementation of Traversable interface for object to be used inside foreach.
-     * Once inside foreach, protected property $items will be iterated.
+     * Implementation of Traversable interface.
+     * Once collection object is inside foreach, protected property $items will be iterated.
      *
      * @return \Devrtips\Listr\ArrayIterator
      */

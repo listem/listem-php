@@ -1,6 +1,6 @@
 {
     "name": "devrtips/listr",
-    "description": "Listr is an easy to use (but highly customizable) sorting and filtering module for your Laravel 4/5 lists, especially for paginated list views.",
+    "description": "Listr is an easy to use (but highly customizable) data sorting and filtering module for PHP, that can be used for data lists/tables/grids, reports or APIs.",
     "authors": [
         {
             "name": "Malitta Nanayakkara",
@@ -11,11 +11,6 @@
         "php": ">=5.4.0"
     },
     "autoload": {
-        "classmap": [
-            "src/config",
-            "src/controllers",
-            "src/migrations"
-        ],
         "psr-0": {
             "Devrtips\\Listr\\": "src/"
         }
