@@ -6,7 +6,7 @@ use Devrtips\Listr\Collection\Collection;
 use Devrtips\Listr\Builder\Filter as FilterBuilder;
 use Exception;
 
-class Filter
+class Filter extends Collection
 {
 
     /**
@@ -21,7 +21,7 @@ class Filter
      *
      * @var Devrtips\Listr\Collection\Collection
      */
-    protected $filters;
+    protected $items;
 
     /**
      * @var array
@@ -40,7 +40,7 @@ class Filter
         $this->config = $config;
         $this->entity = $entity;
 
-        $this->filters = $this->getFilters();
+        $this->items = $this->getFilters();
     }
 
     /**
@@ -50,7 +50,7 @@ class Filter
      */
     public function getFilters()
     {
-        if (is_null($this->filters)) {
+        if (is_null($this->items)) {
 
             $filtersList = $this->getFiltersListFromConfig();
             $list = [];
@@ -79,10 +79,10 @@ class Filter
                 $list[] = $this->getNewFilterBuilder($item);
             }
 
-            $this->filters = Collection::make($list);
+            $this->items = $list;
         }
 
-        return $this->filters;
+        return $this->items;
     }
 
     /**

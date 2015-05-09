@@ -40,17 +40,6 @@ class Collection implements IteratorAggregate
     }
 
     /**
-     * Make Collection using given array.
-     *
-     * @param array $array
-     * @return self
-     */
-    public static function make(array $array)
-    {
-        return new static($array);
-    }
-
-    /**
      * Return the number of items in the list.
      *
      * @return int
@@ -64,7 +53,7 @@ class Collection implements IteratorAggregate
      * Implementation of Traversable interface.
      * Once collection object is inside foreach, protected property $items will be iterated.
      *
-     * @return \Devrtips\Listr\ArrayIterator
+     * @return ArrayIterator
      */
     public function getIterator()
     {
