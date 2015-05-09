@@ -33,7 +33,7 @@ class Collection implements IteratorAggregate
     public function where($key, $value)
     {
         $this->items = array_filter($this->items, function($item) use ($key, $value) {
-            return isset($item->{$key}) && $item->{$key} == $value;
+            return isset($item[$key]) && $item[$key] == $value;
         });
 
         return $this;

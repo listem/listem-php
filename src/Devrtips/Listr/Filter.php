@@ -58,7 +58,10 @@ class Filter extends Collection
             // Prepare filters list into a collection.
             foreach ($filtersList as $identifier => $filter) {
 
-                $item = [];
+                $item = [
+                    'entity' => $this->entity,
+                    'identifier' => $identifier
+                ];
 
                 // Break identifier (filter list array key) into seperate values.
                 // Identifier pattern is 'column_name|filter_type'.
@@ -70,7 +73,7 @@ class Filter extends Collection
                 // Populate column(s) as an array to maintain uniformity.
                 $item['columns'] = is_array($columns) ? $columns : [$columns];
 
-                $item['type'] = (isset($filter['type'])) ? $filter['type'] : (isset($identifierValues[1]) ? $identifierValues[0] : self::DEFAULT_FILTER_TYPE);
+                $item['type'] = (isset($filter['type'])) ? $filter['type'] : (isset($identifierValues[1]) ? $identifierValues[1] : self::DEFAULT_FILTER_TYPE);
 
                 $item['label'] = $filter['label'];
 
@@ -101,12 +104,16 @@ class Filter extends Collection
 
             // Iterate through the array to see if matching properties exists in the object.
             foreach ($properties as $key => $value) {
+
                 // If exists, popupate them with array values.
                 if (property_exists($filter, $key)) {
                     $filter->{$key} = $value;
                 }
             }
         }
+
+        // Set filter options after populating properties.
+        $filter->setOptions();
 
         return $filter;
     }

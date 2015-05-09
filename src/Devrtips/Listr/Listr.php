@@ -2,9 +2,6 @@
 
 namespace Devrtips\Listr;
 
-use Devrtips\Listr\Collection\FilterCollection;
-use Collection\SorterCollection;
-
 class Listr
 {
 
@@ -32,7 +29,7 @@ class Listr
      */
     public function __construct(array $config)
     {
-        $this->config = $config;
+        $this->config = Config::set($config);
     }
 
     /**
@@ -41,9 +38,9 @@ class Listr
      * @param string $entity
      * @return \Devrtips\Listr\Listr
      */
-    public function getFiltersAndSorters($entity)
+    public function setFiltersAndSorters($entity)
     {
-        $this->filters = $this->getFilters($entity);
+        $this->filters = $this->setFilters($entity);
 
         return $this;
     }
@@ -54,7 +51,7 @@ class Listr
      * @param string $entity
      * @return \Devrtips\Listr\FiltersList
      */
-    public function getFilters($entity)
+    public function setFilters($entity)
     {
         $this->filters = new Filter($this->config['filters'], $entity);
 
