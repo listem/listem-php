@@ -5,7 +5,7 @@ Listr is an easy to use (but highly customizable) data sorting and filtering mod
 
 ## Installation via Composer
 
-Add Listr to your composer.json file
+Add Listr to your composer.json file.
 
 ```
 "require" : {
@@ -13,33 +13,48 @@ Add Listr to your composer.json file
 }
 ```
 
-And install via composer
+And install via composer.
 
 `composer install`
 
 
 ## Usage
 
-Set your configurations and initialize
-```
-$config = array();
+Set your configurations and initialize.
+```php
+<?php
 
-// Initialize Listr by passing your configurations array
+$config = array(
+    // 'column_name'        => options array
+    'title'                 => array('label' => 'Title'),
+
+    // You can override the column name
+    'content'               => array('label' => 'Content', 'column' => 'content'),
+
+    // Filter type is 'string' by default, or you can specify it as,
+    // 'column_name|type'   => ...
+    'created_at|date'       => array('label' => 'Created At Date')
+
+    // Or in the options array
+    'active'                => array('label' => 'Active', 'type' => 'boolean')
+);
+
+// Initialize Listr by passing your configurations array.
 $listr = new Devrtips\Listr\Listr($config);
 
-// Load filters and sorters for the given entity
+// Load filters and sorters for the given entity.
 $listr->setFiltersAndSorters('entity');
 
-// This will enable you to access the filters with $listr->filters
+// This will enable you to access the filters with $listr->filters.
 // and sorters with $listr->sorters
 
-// Or you can choose to load just one or both of them seperately
+// Or you can choose to load just one or both of them seperately.
 $listr->setFilters('entity');
 $listr->setSorters('entity');
 ```
 
-Pass to your view and render
-```
+Pass to your view and render.
+```html+php
 <html>
 ...
 
@@ -51,6 +66,6 @@ Viola!
 
 ## Checklist
 
-- Persistence using sessions (without using URL parameters)
-- Save filter/sorter settings to a DB
-- Support other DB types other than MySQL
+- Persistence using sessions (without using URL parameters).
+- Ability to save filter/sorter settings to a DB and retrieve them.
+- Support other popular DB types other than MySQL (MongoDB, etc.).
