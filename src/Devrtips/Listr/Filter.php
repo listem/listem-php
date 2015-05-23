@@ -48,7 +48,7 @@ class Filter extends Collection
      *
      * @return Devrtips\Listr\FilterCollection
      */
-    public function getFilters()
+    protected function getFilters()
     {
         if (is_null($this->items)) {
 
@@ -58,64 +58,32 @@ class Filter extends Collection
             // Prepare filters list into a collection.
             foreach ($filtersList as $identifier => $filter) {
 
-                $item = [
-                    'entity' => $this->entity,
-                    'identifier' => $identifier
-                ];
+                $entity = $this->entity;
 
                 // Break identifier (filter list array key) into seperate values.
                 // Identifier pattern is 'column_name|filter_type'.
                 $identifierValues = explode('|', $identifier);
 
                 // Get table column name(s). Can be a single column (string) or multiple (array).
-                $columns = (isset($filter['column'])) ? $filter['column'] : $identifierValues[0];
+                $column = (isset($filter['column'])) ? $filter['column'] : $identifierValues[0];
 
                 // Populate column(s) as an array to maintain uniformity.
-                $item['columns'] = is_array($columns) ? $columns : [$columns];
+                $columns = is_array($column) ? $column : [$column];
 
-                $item['type'] = (isset($filter['type'])) ? $filter['type'] : (isset($identifierValues[1]) ? $identifierValues[1] : self::DEFAULT_FILTER_TYPE);
+                $type = (isset($filter['type'])) ? $filter['type'] : (isset($identifierValues[1]) ? $identifierValues[1] : self::DEFAULT_FILTER_TYPE);
 
-                $item['label'] = $filter['label'];
+                $label = $filter['label'];
 
-                $item['placeholder'] = (isset($filter['placeholder'])) ? $filter['placeholder'] : $filter['label'];
+                $placeholder = (isset($filter['placeholder'])) ? $filter['placeholder'] : $filter['label'];
 
-                $list[] = $this->getNewFilterBuilder($item);
+                // Create new filter using the gathered config values.
+                $list[] = new FilterBuilder($entity, $identifier, $columns, $type, $label, $placeholder);
             }
 
             $this->items = $list;
         }
 
         return $this->items;
-    }
-
-    /**
-     * Return new FilterBuilder instance. If an array is passed, populate the existing
-     * properties of the instance with them.
-     *
-     * @param array $properties
-     * @return \Devrtips\Listr\Builder\FilterBuilder
-     */
-    protected function getNewFilterBuilder(array $properties = [])
-    {
-        $filter = new FilterBuilder();
-
-        // If a list of properties were passed, populate item,
-        if (is_array($properties) && !empty($properties)) {
-
-            // Iterate through the array to see if matching properties exists in the object.
-            foreach ($properties as $key => $value) {
-
-                // If exists, popupate them with array values.
-                if (property_exists($filter, $key)) {
-                    $filter->{$key} = $value;
-                }
-            }
-        }
-
-        // Set filter options after populating properties.
-        $filter->setOptions();
-
-        return $filter;
     }
 
     /**

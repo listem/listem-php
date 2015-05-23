@@ -10,4 +10,5 @@ interface FilterOptionInterface
     public function setParameters();
 
     public function getParameters();
+
 }

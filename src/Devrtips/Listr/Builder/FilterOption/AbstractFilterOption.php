@@ -3,10 +3,11 @@
 namespace Devrtips\Listr\Builder\FilterOption;
 
 use Devrtips\Listr\Parameter;
+use Devrtips\Listr\Collection\Collection;
 use Devrtips\Listr\Collection\ArrayAccess;
-use Devrtips\Listr\Builder\Html\Filter as FilterHTMLBuilder;
+use Devrtips\Listr\Builder\Html\LabelHtml;
 
-class AbstractFilterOption extends ArrayAccess implements FilterOptionInterface
+abstract class AbstractFilterOption extends ArrayAccess implements FilterOptionInterface
 {
 
     /**
@@ -25,9 +26,9 @@ class AbstractFilterOption extends ArrayAccess implements FilterOptionInterface
     protected $parameters;
 
     /**
-     * @var Devrtips\Listr\Builder\Html\Filter
+     * @var Devrtips\Listr\Collection\Collection
      */
-    protected $html;
+    protected $inputs;
 
     /**
      * Initialize instance and set it's default property.
@@ -42,13 +43,10 @@ class AbstractFilterOption extends ArrayAccess implements FilterOptionInterface
         $this->entity = $entity;
         $this->filter = $filter;
 
-        $this->html = new FilterHTMLBuilder($this->entity, $this->filter);
-
         // Get filter parameters
         $parameters = Parameter::getFilterParameters($entity, $filter);
 
         if (isset($parameters[$filter])) {
-
             // If parameters don't indicate which filter option they were passed
             // for (if sent in simple format), consider them as parameters
             // for the default filter option.
@@ -57,11 +55,9 @@ class AbstractFilterOption extends ArrayAccess implements FilterOptionInterface
                 $this->parameters = $parameters[$filter];
             }
         }
-    }
 
-    public function renderLabel($text){
-        return $this->html->renderLabel($text);
-
+        // After all class attributes are set, initialize inputs.
+        $this->inputs = new Collection($this->initInputs());
     }
 
     public function getQuery()
@@ -79,4 +75,21 @@ class AbstractFilterOption extends ArrayAccess implements FilterOptionInterface
 
     }
 
+    /**
+     * Returns the rendered HTML inputs of the filter.
+     *
+     * @return string
+     */
+    public function render()
+    {
+        $inputs = [];
+
+        foreach ($this->inputs as $input) {
+            $inputs[] = $input->render();
+        }
+
+        return implode('', $inputs);
+    }
+
+    abstract protected function initInputs();
 }

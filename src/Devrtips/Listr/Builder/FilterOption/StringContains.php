@@ -2,12 +2,16 @@
 
 namespace Devrtips\Listr\Builder\FilterOption;
 
+use Devrtips\Listr\Builder\Html\TextboxHtml;
+
 class StringContains extends AbstractFilterOption
 {
 
-    public function render()
+    protected function initInputs()
     {
-        return $this->html->renderInput($this->parameters);
+        $input = new TextboxHtml('text', $this->entity, $this->filter, $this->parameters);
+
+        return [$input];
     }
 
 }

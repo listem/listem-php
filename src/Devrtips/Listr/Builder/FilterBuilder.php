@@ -2,8 +2,8 @@
 
 namespace Devrtips\Listr\Builder;
 
+use Devrtips\Listr\Builder\Html\LabelHtml;
 use Devrtips\Listr\Collection\ArrayAccess;
-use Devrtips\Listr\Builder\Html\Filter as FilterHtmlBuilder;
 
 class FilterBuilder extends ArrayAccess
 {
@@ -29,7 +29,7 @@ class FilterBuilder extends ArrayAccess
     public $type = 'string';
 
     /**
-     * @var string
+     * @var Devrtips\Listr\Builder\Html\LabelHtml
      */
     public $label;
 
@@ -43,9 +43,30 @@ class FilterBuilder extends ArrayAccess
      */
     public $options;
 
-    public function __construct()
+    /**
+     * If an array is passed, populate the existing properties of the instance with them.
+     *
+     * @param string $entity
+     * @param string $identifier
+     * @param array $columns
+     * @param string $type
+     * @param string $label
+     * @param string $placeholder
+     */
+    public function __construct($entity, $identifier, array $columns, $type, $label, $placeholder = '')
     {
+        $this->entity = $entity;
+        $this->identifier = $identifier;
+        $this->columns = $columns;
+        $this->type = $type;
+        $this->placeholder = ($placeholder) ? $placeholder : $label;
 
+        // Set label property for the filter.
+        $this->label = new LabelHtml($label, $this->entity, $this->identifier);
+
+        // Set filter options. This assumes that the entity and other required
+        // properties were populated initially in the constructor.
+        $this->initOptions();
     }
 
     /**
@@ -53,7 +74,7 @@ class FilterBuilder extends ArrayAccess
      *
      * @return void
      */
-    public function setOptions()
+    protected function initOptions()
     {
         // Get options according to the given filter type.
         $options = FilterOptionBuilder::getOptions($this->type, $this->entity, $this->identifier);
@@ -61,12 +82,14 @@ class FilterBuilder extends ArrayAccess
         $this->options = $options;
     }
 
+    /**
+     * Returns the rendered HTML output of a filter label.
+     *
+     * @return string
+     */
     public function renderLabel()
     {
-        // Render the label from filter options. Every option belonging to a filter
-        // will return the same label. Here we have used the first option.
-        return $this->options->first()
-                ->renderLabel($this->label);
+        return $this->label->render();
     }
 
     /**
@@ -82,4 +105,5 @@ class FilterBuilder extends ArrayAccess
 
         return $option->render();
     }
+
 }

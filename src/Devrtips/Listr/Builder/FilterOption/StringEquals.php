@@ -2,9 +2,16 @@
 
 namespace Devrtips\Listr\Builder\FilterOption;
 
+use Devrtips\Listr\Builder\Html\TextboxHtml;
+
 class StringEquals extends AbstractFilterOption
 {
 
-    protected $inputs = ['equals'];
+    protected function initInputs()
+    {
+        $input = new TextboxHtml('text', $this->entity, $this->filter, $this->parameters);
+
+        return [$input];
+    }
 
 }
