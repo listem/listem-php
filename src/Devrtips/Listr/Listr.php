@@ -8,12 +8,12 @@ class Listr
     /**
      * @var Devrtips\Listr\Filter
      */
-    public $filter;
+    public $filters;
 
     /**
      * @var Devrtips\Listr\Sorter
      */
-    public $sorter;
+    public $sorters;
 
     /**
      * Contains the configurations for filters and sorters.

@@ -3,7 +3,7 @@
 namespace Devrtips\Listr;
 
 use Devrtips\Listr\Collection\Collection;
-use Devrtips\Listr\Builder\Filter as FilterBuilder;
+use Devrtips\Listr\Builder\FilterBuilder;
 use Exception;
 
 class Filter extends Collection

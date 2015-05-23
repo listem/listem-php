@@ -24,6 +24,18 @@ class Collection implements IteratorAggregate
     }
 
     /**
+     * Return the first value from the items.
+     *
+     * @return mixed
+     */
+    public function first()
+    {
+        $item = array_values($this->items)[0];
+
+        return $item;
+    }
+
+    /**
      * Filter items from the given key value pair.
      *
      * @param string $key

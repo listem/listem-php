@@ -33,7 +33,7 @@ class Url implements ParameterInterface
      */
     public function getFilterParameters($entity)
     {
-        return $this->filters[$entity];
+        return (isset($this->filters[$entity])) ? $this->filters[$entity] : [];
     }
 
     /**
@@ -43,7 +43,7 @@ class Url implements ParameterInterface
      */
     public function getSorterParameters($entity)
     {
-        return $this->sorters[$entity];
+        return (isset($this->sorters[$entity])) ? $this->filters[$entity] : [];
     }
 
 }

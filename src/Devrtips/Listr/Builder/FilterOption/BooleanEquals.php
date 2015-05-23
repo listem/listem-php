@@ -2,7 +2,7 @@
 
 namespace Devrtips\Listr\Builder\FilterOption;
 
-class BooleanEquals
+class BooleanEquals extends AbstractFilterOption
 {
 
 }

@@ -2,7 +2,9 @@
 
 namespace Devrtips\Listr\Builder\FilterOption;
 
-class StringEquals
+class StringEquals extends AbstractFilterOption
 {
+
+    protected $inputs = ['equals'];
 
 }

@@ -10,15 +10,6 @@ class Parameter
      */
     public static $parameterClass;
 
-    /**
-     * @var array
-     */
-    public static $items = array(
-        'default' => array(
-            'parameter' => 'url'
-        )
-    );
-
     private static function getParameterClass()
     {
         if (is_null(self::$parameterClass)) {

@@ -2,7 +2,7 @@
 
 namespace Devrtips\Listr\Builder\FilterOption;
 
-class TimeBetween
+class TimeBetween extends AbstractFilterOption
 {
 
 }

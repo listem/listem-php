@@ -2,7 +2,7 @@
 
 namespace Devrtips\Listr\Builder\FilterOption;
 
-class TimeTo
+class TimeTo extends AbstractFilterOption
 {
 
 }

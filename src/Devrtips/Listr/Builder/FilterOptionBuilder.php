@@ -4,7 +4,7 @@ namespace Devrtips\Listr\Builder;
 
 use Devrtips\Listr\Collection\Collection;
 
-class FilterOption
+class FilterOptionBuilder
 {
 
     /**
