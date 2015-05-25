@@ -2,12 +2,13 @@
 
 namespace Devrtips\Listr\Builder\FilterOption;
 
+use ArrayIterator;
+use IteratorAggregate;
 use Devrtips\Listr\Parameter;
 use Devrtips\Listr\Collection\Collection;
 use Devrtips\Listr\Collection\ArrayAccess;
-use Devrtips\Listr\Builder\Html\LabelHtml;
 
-abstract class AbstractFilterOption extends ArrayAccess implements FilterOptionInterface
+abstract class AbstractFilterOption extends ArrayAccess implements FilterOptionInterface, IteratorAggregate
 {
 
     /**
@@ -92,4 +93,16 @@ abstract class AbstractFilterOption extends ArrayAccess implements FilterOptionI
     }
 
     abstract protected function initInputs();
+
+    /**
+     * Implementation of Traversable interface.
+     * Once collection object is inside foreach, protected property $inputs will be iterated.
+     *
+     * @return ArrayIterator
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->inputs->toArray());
+    }
+
 }

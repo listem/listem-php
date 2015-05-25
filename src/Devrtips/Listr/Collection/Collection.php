@@ -52,6 +52,16 @@ class Collection implements IteratorAggregate
     }
 
     /**
+     * Return items as an array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+       return (array) $this->items;
+    }
+
+    /**
      * Return the number of items in the list.
      *
      * @return int

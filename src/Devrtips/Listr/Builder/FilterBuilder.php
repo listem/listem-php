@@ -11,37 +11,37 @@ class FilterBuilder extends ArrayAccess
     /**
      * @var string
      */
-    public $entity;
+    protected $entity;
 
     /**
      * @var string
      */
-    public $identifier;
+    protected $identifier;
 
     /**
      * @var array
      */
-    public $columns = array();
+    protected $columns = array();
 
     /**
      * @var string
      */
-    public $type = 'string';
+    protected $type = 'string';
 
     /**
      * @var Devrtips\Listr\Builder\Html\LabelHtml
      */
-    public $label;
+    protected $label;
 
     /**
      * @var string
      */
-    public $placeholder;
+    protected $placeholder;
 
     /**
      * @var Devrtips\Listr\Collection\Collection
      */
-    public $options;
+    protected $options;
 
     /**
      * If an array is passed, populate the existing properties of the instance with them.
@@ -83,13 +83,33 @@ class FilterBuilder extends ArrayAccess
     }
 
     /**
-     * Returns the rendered HTML output of a filter label.
+     * Return the label of the filter.
      *
-     * @return string
+     * @return LabelHtml
      */
-    public function renderLabel()
+    public function getLabel()
     {
-        return $this->label->render();
+        return $this->label;
+    }
+
+    /**
+     * Return the default option of the filter.
+     *
+     * @return Devrtips\Listr\Builder\FilterOption\FilterOptionInterface
+     */
+    public function getDefaultOption()
+    {
+        return $this->options->where('default', 1)->first();
+    }
+
+    /**
+     * Return options collection of the filter.
+     *
+     * @return Devrtips\Listr\Collection\Collection
+     */
+    public function getOptions()
+    {
+        return $this->options;
     }
 
     /**
