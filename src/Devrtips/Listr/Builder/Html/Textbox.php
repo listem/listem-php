@@ -2,7 +2,7 @@
 
 namespace Devrtips\Listr\Builder\Html;
 
-class Textbox implements HtmlInterface, FormInputInterface
+class Textbox extends AbstractFormInput
 {
 
     protected $type;
@@ -12,7 +12,7 @@ class Textbox implements HtmlInterface, FormInputInterface
     public function __construct($type, $entity, $filter, $value)
     {
         $this->type = $type;
-        $this->name = 'filters[' . $entity . '][' . $filter . ']';
+        $this->name = $this->generateName($entity, $filter);
         $this->value = $value;
     }
 

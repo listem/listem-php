@@ -4,12 +4,23 @@ namespace Devrtips\Listr\Builder\FilterOption;
 
 use ArrayIterator;
 use IteratorAggregate;
+use Devrtips\Listr\Config;
 use Devrtips\Listr\Parameter;
 use Devrtips\Listr\Collection\Collection;
 use Devrtips\Listr\Collection\ArrayAccess;
 
 abstract class AbstractFilterOption extends ArrayAccess implements FilterOptionInterface, IteratorAggregate
 {
+
+    /**
+     * @var string
+     */
+    protected $entity;
+
+    /**
+     * @var string
+     */
+    protected $filter;
 
     /**
      * @var bool
@@ -32,6 +43,11 @@ abstract class AbstractFilterOption extends ArrayAccess implements FilterOptionI
     protected $inputs;
 
     /**
+     * @var array
+     */
+    protected $config;
+
+    /**
      * Initialize instance and set it's default property.
      *
      * @param bool $default
@@ -43,6 +59,7 @@ abstract class AbstractFilterOption extends ArrayAccess implements FilterOptionI
         $this->default = $default;
         $this->entity = $entity;
         $this->filter = $filter;
+        $this->config = Config::get()['filters'][$entity][$filter];
 
         // Get filter parameters
         $parameters = Parameter::getFilterParameters($entity, $filter);

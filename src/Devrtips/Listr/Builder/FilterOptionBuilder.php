@@ -29,6 +29,9 @@ class FilterOptionBuilder
             'between',
             'from',
             'to'
+        ),
+        'radio' => array(
+            'equals'
         )
     );
 
