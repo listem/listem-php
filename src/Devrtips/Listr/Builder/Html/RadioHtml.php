@@ -8,16 +8,18 @@ class RadioHtml implements HtmlInterface, HtmlInputInterface
     protected $type = 'radio';
     protected $name;
     protected $value;
+    protected $label;
 
-    public function __construct($entity, $filter, $value)
+    public function __construct($entity, $filter, $value, $label)
     {
         $this->name = 'filters[' . $entity . '][' . $filter . ']';
         $this->value = $value;
+        $this->label = $label;
     }
 
     public function render()
     {
-        return '<input type="radio" name="' . $this->name . '" id="' . $this->name . '" value="' . $this->value . '" />';
+        return '<label><input type="radio" name="' . $this->name . '" value="' . $this->value . '" /> ' . $this->label . '</label>';
     }
 
     public function getType()

@@ -9,8 +9,8 @@ class BooleanEquals extends AbstractFilterOption
 
     protected function initInputs()
     {
-        $inputs[] = new RadioHtml('text', $this->entity, $this->filter, $this->parameters);
-        $inputs[] = new RadioHtml('text', $this->entity, $this->filter, $this->parameters);
+        $inputs[] = new RadioHtml($this->entity, $this->filter, $this->parameters, 'True');
+        $inputs[] = new RadioHtml($this->entity, $this->filter, $this->parameters, 'False');
 
         return $inputs;
     }
