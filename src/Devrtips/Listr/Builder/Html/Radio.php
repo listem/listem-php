@@ -2,7 +2,7 @@
 
 namespace Devrtips\Listr\Builder\Html;
 
-class RadioHtml implements HtmlInterface, HtmlInputInterface
+class Radio implements HtmlInterface, FormInputInterface
 {
 
     protected $type = 'radio';

@@ -2,7 +2,7 @@
 
 namespace Devrtips\Listr\Builder\Html;
 
-class LabelHtml implements HtmlInterface
+class Label implements HtmlInterface
 {
 
     /**

@@ -2,15 +2,15 @@
 
 namespace Devrtips\Listr\Builder\FilterOption;
 
-use Devrtips\Listr\Builder\Html\RadioHtml;
+use Devrtips\Listr\Builder\Html\Radio;
 
 class BooleanEquals extends AbstractFilterOption
 {
 
     protected function initInputs()
     {
-        $inputs[] = new RadioHtml($this->entity, $this->filter, $this->parameters, 'True');
-        $inputs[] = new RadioHtml($this->entity, $this->filter, $this->parameters, 'False');
+        $inputs[] = new Radio($this->entity, $this->filter, $this->parameters, 'True');
+        $inputs[] = new Radio($this->entity, $this->filter, $this->parameters, 'False');
 
         return $inputs;
     }

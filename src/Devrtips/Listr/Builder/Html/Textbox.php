@@ -2,7 +2,7 @@
 
 namespace Devrtips\Listr\Builder\Html;
 
-class TextboxHtml implements HtmlInterface, HtmlInputInterface
+class Textbox implements HtmlInterface, FormInputInterface
 {
 
     protected $type;

@@ -2,7 +2,7 @@
 
 namespace Devrtips\Listr\Builder;
 
-use Devrtips\Listr\Builder\Html\LabelHtml;
+use Devrtips\Listr\Builder\Html\Label;
 use Devrtips\Listr\Collection\ArrayAccess;
 
 class FilterBuilder extends ArrayAccess
@@ -29,7 +29,7 @@ class FilterBuilder extends ArrayAccess
     protected $type = 'string';
 
     /**
-     * @var Devrtips\Listr\Builder\Html\LabelHtml
+     * @var Devrtips\Listr\Builder\Html\Label
      */
     protected $label;
 
@@ -62,7 +62,7 @@ class FilterBuilder extends ArrayAccess
         $this->placeholder = ($placeholder) ? $placeholder : $label;
 
         // Set label property for the filter.
-        $this->label = new LabelHtml($label, $this->entity, $this->identifier);
+        $this->label = new Label($label, $this->entity, $this->identifier);
 
         // Set filter options. This assumes that the entity and other required
         // properties were populated initially in the constructor.
@@ -85,7 +85,7 @@ class FilterBuilder extends ArrayAccess
     /**
      * Return the label of the filter.
      *
-     * @return LabelHtml
+     * @return Label
      */
     public function getLabel()
     {
