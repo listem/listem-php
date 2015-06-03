@@ -2,11 +2,20 @@
 
 namespace Devrtips\Listr\Builder\FilterOption;
 
+use Devrtips\Listr\Builder\Html\Textbox;
+
 class DateBetween extends AbstractFilterOption
 {
 
-    public function render()
+    protected $inputs = array('from', 'to');
+
+    protected function initInputs()
     {
-        return $this->html->renderInput($this->parameters);
+        foreach ($this->inputs as $input) {
+            $inputs[] = new Textbox('text', $this->entity, [$this->filter, $input], $this->parameters[$input]);
+        }
+
+        return $inputs;
     }
+
 }

@@ -2,7 +2,7 @@
 
 namespace Devrtips\Listr\Builder\Html;
 
-interface HtmlInputInterface
+interface FormInputInterface
 {
 
     public function getType();
