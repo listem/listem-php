@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @author      Malitta Nanayakkara <malitta@gmail.com>
+ * @copyright   2015 Malitta Nanayakkara
+ * @link        http://devr.tips/packages/listr
+ * @license     http://opensource.org/licenses/MIT
+ */
+
 namespace Devrtips\Listr;
 
 use Devrtips\Listr\Collection\Collection;
@@ -27,6 +34,10 @@ class Filter extends Collection
      * @var array
      */
     protected $config;
+
+
+    public static $queryClass;
+
 
     /**
      * Default filter type, if it is explicitly not defined in the config.
@@ -110,6 +121,11 @@ class Filter extends Collection
     protected function getDefaultConfig()
     {
         return $this->config['default'];
+    }
+
+    public function getQuery()
+    {
+        return Query::getFilterConditions($this->entity);
     }
 
 }

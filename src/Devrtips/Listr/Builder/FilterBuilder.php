@@ -83,16 +83,6 @@ class FilterBuilder extends ArrayAccess
     }
 
     /**
-     * Return the label of the filter.
-     *
-     * @return Label
-     */
-    public function getLabel()
-    {
-        return $this->label;
-    }
-
-    /**
      * Return the default option of the filter.
      *
      * @return Devrtips\Listr\Builder\FilterOption\FilterOptionInterface
@@ -113,17 +103,50 @@ class FilterBuilder extends ArrayAccess
     }
 
     /**
+     * Return the label of the filter.
+     *
+     * @return Label
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * Return the default option (input) of the filter. 
+     * Alias to getDefaultOption().
+     *
+     * @return Devrtips\Listr\Builder\FilterOption\FilterOptionInterface
+     */
+    public function getInput()
+    {
+        return $this->getDefaultOption();
+    }
+
+    /**
+     * Render HTML label element for the filter.
+     *
+     * @return string HTML
+     */
+    public function renderLabel()
+    {
+        return $this->getLabel()->render();
+    }
+
+    /**
      * Render HTML input of the filter. Usually a filter contains multiple options.
      * By using this method, the input of the first option or the default option
      * is rendered.
      *
      * @return string HTML
      */
-    public function renderInput()
+    public function renderInput($attributes = array())
     {
-        $option = $this->options->where('default', 1)->first();
+        $input = $this->getInput();
 
-        return $option->render();
+        $attrs = (is_object($attributes) && get_class($attributes) == 'Closure') ? $attributes($input) : $attributes;
+
+        return $input->render();
     }
 
 }

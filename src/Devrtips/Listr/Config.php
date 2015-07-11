@@ -10,7 +10,8 @@ class Config
      */
     public static $items = array(
         'default' => array(
-            'parameter' => 'url'
+            'parameter' => 'url',
+            'database' => 'mysql'
         )
     );
 

@@ -62,7 +62,7 @@ abstract class AbstractFilterOption extends ArrayAccess implements FilterOptionI
         $this->config = Config::get()['filters'][$entity][$filter];
 
         // Get filter parameters
-        $parameters = Parameter::getFilterParameters($entity, $filter);
+        $parameters = Parameter::getFilterParameters($entity);
 
         if (isset($parameters[$filter])) {
             // If parameters don't indicate which filter option they were passed

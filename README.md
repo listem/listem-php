@@ -24,10 +24,9 @@ Set your configurations and initialize.
 ```php
 <?php
 
-$config = array(
-    // Filters identifier
-    'blog' => array(
-        'filters' => array(
+$config = array( 
+    'filters' => array(
+        'blog' => array(
 
             // 'column_name'        => options array
             'title'                 => array('label' => 'Title'),
@@ -37,12 +36,12 @@ $config = array(
 
             // Filter type is 'string' by default, or you can specify it as,
             // 'column_name|type'   => ...
-            'created_at|date'       => array('label' => 'Created At Date')
+            'created_at|date'       => array('label' => 'Created At Date'),
 
             // Or in the options array
             'active'                => array('label' => 'Active', 'type' => 'boolean')
-        );
-    );
+        )
+    )
 );
 
 // Initialize Listr by passing your configurations array.
@@ -60,7 +59,7 @@ $listr->setSorters('entity');
 ```
 
 Pass to your view and render.
-```html+php
+```html
 <form method="GET"> <!-- Should be submitted to the current page -->
     <table>
     <?php foreach($listr->filters as $filter): ?>
@@ -68,7 +67,7 @@ Pass to your view and render.
             <td><?php $filter->renderLabel() ?></td>
             <td><?php $filter->renderInput() ?></td>
         </tr>
-    <?php enforeach ?>
+    <?php endforeach ?>
     </table>
 
     <button type="submit">Filter</button>
