@@ -7,7 +7,12 @@ use Devrtips\Listr\Builder\Html\Radio;
 class RadioEquals extends AbstractFilterOption
 {
 
-    protected function initInputs()
+    /**
+     * @inherit
+     * {@inherit}
+     * {@inheritdoc}
+     */
+    protected function getInputs()
     {
 
         if(!isset($this->config['options'])){

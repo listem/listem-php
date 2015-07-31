@@ -7,11 +7,16 @@ use Devrtips\Listr\Builder\Html\Textbox;
 class StringEquals extends AbstractFilterOption
 {
 
-    protected function initInputs()
+    /**
+	 * @inherit
+     * {@inherit}
+     * {@inheritdoc}
+     */
+    protected function getInputs()
     {
         $input = new Textbox('text', $this->entity, $this->filter, $this->parameters);
 
-        return [$input];
+        return array($input);
     }
 
 }

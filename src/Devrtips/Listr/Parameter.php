@@ -28,19 +28,31 @@ class Parameter
     /**
      * Get parameters for filters with the given identifier/entity name.
      *
+     * @param bool $filter
      * @param string $entity
      */
-    public static function getFilterParameters($entity)
+    public static function getFilterParameters($entity, $filter = false)
     {
-        return self::getParameterClass()->getFilterParameters($entity);
+        $parameters = self::getParameterClass()->getFilterParameters($entity);
+
+        // Remove empty parameters.
+        if ($filter) {
+            $parameters = array_filter($parameters, function($val) {
+                return ((($val || $val === 0 || $val === '0') 
+                    && !is_array($val)) || (is_array($val) && !empty(array_filter($val))));
+            });
+        }
+
+        return $parameters;
     }
 
     /**
      * Get parameters for sorters with the given identifier/entity name.
      *
+     * @param bool $filter
      * @param string $entity
      */
-    public static function getSorterParameters($entity)
+    public static function getSorterParameters($entity, $filter = false)
     {
         return self::getParameterClass()->getSorterParameters($entity);
     }

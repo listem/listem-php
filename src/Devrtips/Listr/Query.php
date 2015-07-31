@@ -56,23 +56,25 @@ class Query
     /**
      * Get parameters for filters with the given identifier/entity name.
      *
-     * @param string $entity
+     * @param Devrtips\Listr\Collection\Collection $items
      * @return array
      */
-    public static function getFilterConditions($entity)
+    public static function getFilterConditions($items)
     {
-        return self::getFilterQueryClass()->init($entity);
+        self::getFilterQueryClass()->init($items);
+        return self::getFilterQueryClass()->getConditions();
+        
     }
 
     /**
      * Get parameters for sorters with the given identifier/entity name.
      *
-     * @param string $entity
+     * @param Devrtips\Listr\Collection\Collection $items
      * @return array
      */
-    public static function getSortOrders($entity)
+    public static function getSortOrders($items)
     {
-        return self::getSorterQueryClass()->init($entity);
+        return self::getSorterQueryClass()->init($items);
     }
 
 }

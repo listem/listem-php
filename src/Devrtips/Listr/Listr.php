@@ -35,20 +35,13 @@ class Listr
     public $sorters;
 
     /**
-     * Contains the configurations for filters and sorters.
-     *
-     * @var array
-     */
-    protected $config;
-
-    /**
      * Initialize the class by populating the config array.
      *
      * @param array $config
      */
     public function __construct(array $config)
     {
-        $this->config = Config::set($config);
+        Config::set($config);
     }
 
     /**
@@ -73,7 +66,7 @@ class Listr
      */
     public function initFilters($entity)
     {
-        $this->filters = new Filter($this->config['filters'], $entity);
+        $this->filters = new Filter($entity);
 
         return $this->filters;
     }
@@ -92,11 +85,11 @@ class Listr
     }
 
     /**
-     * Ret
+     * Return filter conditions.
      * 
      * @return Devrtips\Listr\Query\Filter\FilterQueryInterface
      */
-    public function getQuery()
+    public function getFilterConditions()
     {
         return $this->filters->getQuery();
     }

@@ -58,6 +58,7 @@ class FilterOptionBuilder
             $optionsClassname = 'Devrtips\Listr\Builder\FilterOption\\' . ucwords($type) . ucwords($option);
 
             // Instanciate new filter option and add it to list.
+            // TODO: check if implementation of FilterOptionInterface
             $optionInstancesList[] = new $optionsClassname($defaultOption, $entity, $identifier);
         }
 

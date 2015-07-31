@@ -38,19 +38,10 @@ class Filter extends Collection
 
     public static $queryClass;
 
-
-    /**
-     * Default filter type, if it is explicitly not defined in the config.
-     *
-     * @var string
-     */
-    const DEFAULT_FILTER_TYPE = 'string';
-
-    public function __construct(array $config, $entity)
+    public function __construct($entity)
     {
-        $this->config = $config;
+        $this->config = Config::get();
         $this->entity = $entity;
-
         $this->items = $this->getFilters();
     }
 
@@ -63,54 +54,20 @@ class Filter extends Collection
     {
         if (is_null($this->items)) {
 
-            $filtersList = $this->getFiltersListFromConfig();
+            $filtersList = Config::getFilters($this->entity);
             $list = [];
 
             // Prepare filters list into a collection.
             foreach ($filtersList as $identifier => $filter) {
 
-                $entity = $this->entity;
-
-                // Break identifier (filter list array key) into seperate values.
-                // Identifier pattern is 'column_name|filter_type'.
-                $identifierValues = explode('|', $identifier);
-
-                // Get table column name(s). Can be a single column (string) or multiple (array).
-                $column = (isset($filter['column'])) ? $filter['column'] : $identifierValues[0];
-
-                // Populate column(s) as an array to maintain uniformity.
-                $columns = is_array($column) ? $column : [$column];
-
-                $type = (isset($filter['type'])) ? $filter['type'] : (isset($identifierValues[1]) ? $identifierValues[1] : self::DEFAULT_FILTER_TYPE);
-
-                $label = $filter['label'];
-
-                $placeholder = (isset($filter['placeholder'])) ? $filter['placeholder'] : $filter['label'];
-
                 // Create new filter using the gathered config values.
-                $list[] = new FilterBuilder($entity, $identifier, $columns, $type, $label, $placeholder);
+                $list[] = new FilterBuilder($this->entity, $identifier, $filter['columns'], $filter['type'], $filter['label'], $filter['placeholder']);
             }
 
             $this->items = $list;
         }
 
         return $this->items;
-    }
-
-    /**
-     * Return the list of filters defined in config for the given identifier/entity name.
-     *
-     * @return array
-     * @throws Exception
-     */
-    protected function getFiltersListFromConfig()
-    {
-        // If list of filters for the given entity is not available, throw error.
-        if (!isset($this->config[$this->entity]) || is_null($config = $this->config[$this->entity])) {
-            throw new Exception("Filters list for '{$this->entity}' not defined in config.");
-        }
-
-        return $config;
     }
 
     /**
@@ -125,7 +82,7 @@ class Filter extends Collection
 
     public function getQuery()
     {
-        return Query::getFilterConditions($this->entity);
+        return Query::getFilterConditions($this->items);
     }
 
 }

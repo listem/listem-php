@@ -9,7 +9,7 @@ use Devrtips\Listr\Parameter;
 use Devrtips\Listr\Collection\Collection;
 use Devrtips\Listr\Collection\ArrayAccess;
 
-abstract class AbstractFilterOption extends ArrayAccess implements FilterOptionInterface, IteratorAggregate
+abstract class AbstractFilterOption extends ArrayAccess implements IteratorAggregate
 {
 
     /**
@@ -75,22 +75,7 @@ abstract class AbstractFilterOption extends ArrayAccess implements FilterOptionI
         }
 
         // After all class attributes are set, initialize inputs.
-        $this->inputs = new Collection($this->initInputs());
-    }
-
-    public function getQuery()
-    {
-
-    }
-
-    public function setParameters()
-    {
-
-    }
-
-    public function getParameters()
-    {
-
+        $this->inputs = new Collection($this->getInputs());
     }
 
     /**
@@ -109,7 +94,12 @@ abstract class AbstractFilterOption extends ArrayAccess implements FilterOptionI
         return implode('', $inputs);
     }
 
-    abstract protected function initInputs();
+    /**
+     * Initializes and returns the HTML input(s) that represents the filter option.
+     * 
+     * @return array
+     */
+    abstract protected function getInputs();
 
     /**
      * Implementation of Traversable interface.

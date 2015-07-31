@@ -3,9 +3,10 @@
 namespace Devrtips\Listr\Collection;
 
 use ArrayIterator;
+use Countable;
 use IteratorAggregate;
 
-class Collection implements IteratorAggregate
+class Collection extends ArrayAccess implements Countable, IteratorAggregate
 {
 
     /**
