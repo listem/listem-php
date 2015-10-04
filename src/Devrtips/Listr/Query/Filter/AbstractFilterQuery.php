@@ -38,7 +38,8 @@ abstract class AbstractFilterQuery
           $params = $activeFilterOption->first()['parameters'];
           $params = (is_array($params)) ? array_filter($params) : $params;
 
-          if(empty($params) || $params == ''){
+
+          if($params !== '0' && (empty($params) || $params == '')){
               continue;
           }
           

@@ -16,6 +16,8 @@ class DateBetween extends AbstractFilterOption
      */
     protected function getInputs()
     {
+// echo '<pre>', print_r($this, true);
+// exit;
         foreach ($this->inputs as $input) {
             $inputs[] = new Textbox('text', $this->entity, [$this->filter, $input], $this->parameters[$input]);
         }

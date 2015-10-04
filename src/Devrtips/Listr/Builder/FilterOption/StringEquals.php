@@ -19,4 +19,20 @@ class StringEquals extends AbstractFilterOption
         return array($input);
     }
 
+    /**
+     * @inherit
+     * {@inherit}
+     * {@inheritdoc}
+     */
+    public function getQuery()
+    {
+        $conditions = array();
+
+        foreach($this->config['columns'] as $column){
+            $conditions[] = array($column, '=', $this->parameters);  
+        }
+
+        return $conditions;
+    }
+
 }

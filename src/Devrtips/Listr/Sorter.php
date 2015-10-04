@@ -24,4 +24,8 @@ class Sorter
     public function getOrder(){
         return Query::getSortOrders($this->entity);
     }
+
+    public function renderInput(){
+        return "-";
+    }
 }
