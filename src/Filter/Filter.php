@@ -131,10 +131,10 @@ class Filter extends Collection
     
     public function setDefault($defaultValue)
     {
-        // echo '<pre>', print_r(this, true);
-        // exit;
         foreach ($this->options as $option) {
 
+        // echo '<pre>', print_r($option['defaultValue'], true);
+        // exit;
             // Todo: check if option implements Devrtips\Listr\Filter\Options\EnumInterface
             switch (get_class($option)) {
                 case 'Devrtips\Listr\Filter\Options\EnumSelect':

@@ -8,6 +8,6 @@ class StringEquals extends AbstractOption
 {
     protected function boot()
     {
-        $this->inputs[] = new Textbox($this->name, $this->defaultValue);
+        $this->inputs[] = new Textbox($this->name, $this->getDefaultValue());
     }
 }

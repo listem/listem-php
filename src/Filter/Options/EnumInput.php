@@ -27,11 +27,11 @@ class EnumInput extends AbstractOption
 
     public function setDefault($defaultValue)
     {
-        $this->defaultValue = $defaultValue;
-        
-        if ($this->defaultValue === null && isset($this->enums['any'])) {
-            $this->defaultValue = 'any';
+        if ($defaultValue === null && isset($this->enums['any'])) {
+            $defaultValue = 'any';
         }
+
+        $this->settings['default'] = $defaultValue;
 
         $this->generateInputs();
     }
@@ -47,7 +47,7 @@ class EnumInput extends AbstractOption
 
         foreach ($this->enums as $value => $text) {
             $value = (is_numeric($value)) ? (float) $value : $value;
-            $defaultValue = (is_numeric($this->defaultValue)) ? (float) $this->defaultValue : $this->defaultValue;
+            $defaultValue = (is_numeric($this->getDefaultValue())) ? (float) $this->getDefaultValue() : $this->getDefaultValue();
 
             $selected = ($value === $defaultValue);
 

@@ -16,6 +16,6 @@ class EnumSelect extends AbstractOption
     {
         $options = (isset($this->settings['enums']) && !empty($this->settings['enums'])) ? array('any' => '') + $this->settings['enums'] : self::$DEFAULT_OPTIONS;
 
-        $this->inputs[] = new Select($this->name, $options, $this->defaultValue);
+        $this->inputs[] = new Select($this->name, $options, $this->getDefaultValue());
     }
 }

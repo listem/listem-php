@@ -32,7 +32,7 @@ Html;
     protected function getOptionElems()
     {
         $optionElems = array();
-        
+
         foreach ($this->enums as $value => $text) {
             $value = (is_numeric($value)) ? (float) $value : $value;
             $defaultValue = (is_numeric($this->defaultValue)) ? (float) $this->defaultValue : $this->defaultValue;

@@ -11,7 +11,6 @@ abstract class AbstractOption implements PHPArrayAccess
 
     protected $name = false;
     protected $active = false;
-    protected $defaultValue = false;
     protected $settings;
     protected $parameters;
     
@@ -23,7 +22,6 @@ abstract class AbstractOption implements PHPArrayAccess
         $this->active = $active;
         $this->settings = $settings;
         $this->parameters = $parameters;
-        $this->defaultValue = $this->getDefaultValue($this->name);
 
         $this->boot();
     }
@@ -47,9 +45,9 @@ abstract class AbstractOption implements PHPArrayAccess
 
     }
 
-    public function getDefaultValue($name)
+    public function getDefaultValue()
     {
-        $defaultValue = (!is_null($param = $this->parameters->getFilterParam($name))) ? $param : $this->settings['default'];
+        $defaultValue = (!is_null($param = $this->parameters->getFilterParam($this->name))) ? $param : $this->settings['default'];
 
         return (is_numeric($defaultValue)) ? (float) $defaultValue : $defaultValue;
     }
