@@ -8,8 +8,8 @@ class EnumInput extends AbstractOption
 {
     protected $enums = array();
 
-    protected static $DEFAULT_OPTIONS = array(
-        'any' => 'Any', 
+    public static $DEFAULT_OPTIONS = array(
+        'any' => '', 
         1 => 'Active', 
         0 => 'Inactive'
     );
