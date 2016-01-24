@@ -25,10 +25,10 @@ class Config extends Collection
         $this->items = $config;
     }
 
-    protected function prepareFilters($key, array $settings = array())
+    protected function prepareFilters($filterName, array $settings = array())
     {
         // Get table column name(s). Can be a single column (string) or multiple (array).
-        $column = (isset($settings['column'])) ? $settings['column'] : $key;
+        $column = (isset($settings['column'])) ? $settings['column'] : $filterName;
 
         // Populate column(s) as an array to maintain uniformity.
         $columns = (is_array($column)) ? $column : [$column];
@@ -41,10 +41,14 @@ class Config extends Collection
 
         $enums = (isset($settings['enums'])) ? $settings['enums'] : array();
 
+        if (!isset($settings['label']) || empty($settings['label'])) {
+            throw new \Exception("Label needed for filter '{$filterName}'.");
+        }
+
         $placeholder = (isset($settings['placeholder'])) ? $settings['placeholder'] : $settings['label'];
 
         return array(
-            'name' => $key,
+            'name' => $filterName,
             'columns' => $columns,
             'type' => $type,
             'label' => $settings['label'],

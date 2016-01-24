@@ -39,6 +39,8 @@ class EnumInput extends AbstractOption
     public function setEnums(array $enums)
     {
         $this->enums = $enums;
+        
+        $this->generateInputs();
     }
 
     protected function generateInputs()

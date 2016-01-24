@@ -4,11 +4,17 @@ namespace Devrtips\Listr;
 
 use Devrtips\Listr\Parameter\Simple as DefaultParameterMethod;
 use Devrtips\Listr\Support\Collection;
+use Devrtips\Listr\Conditions\Conditions;
 
 class Filter extends Collection
 {
+
+    protected $entity; 
+
     public function __construct($entity)
     {
+        $this->entity = $entity;
+
         $config = Listr::getConfig();
 
         foreach ($config[$entity]['filters'] as $name => $filter) {
@@ -18,11 +24,23 @@ class Filter extends Collection
 
     public function getFilter($filter)
     {
-        return $this->where('name', $filter)->first();
+        try {
+            return $this->where('name', $filter)->first();   
+        } catch (\Exception $e) {
+            throw new \OutOfBoundsException("Filter '{$filter}' does not exist in '{$this->entity}'.");
+        }
     }
         
     public function getConditions()
     {
-        return array();
+        $conditions = [];
+
+        foreach ($this as $filter) {
+            $conditions[$filter['name']] = $filter->getConditions();
+        }
+        
+        // echo '<pre>', print_r($conditions); exit;
+
+        return Conditions::formatConditions($conditions);
     }
 }

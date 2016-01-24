@@ -2,6 +2,7 @@
 
 namespace Devrtips\Listr\Filter;
 
+use ReflectionClass;
 use Devrtips\Listr\Filter\Option;
 use Devrtips\Listr\Html\Elems\Label;
 use Devrtips\Listr\Support\Collection;
@@ -192,5 +193,16 @@ class Filter extends Collection
 
 		return new $class($name, $active, $settings, $parameters);
 	}
+
+    public function getConditions()
+    {
+        $conditions = [];
+
+        foreach ($this->options->where('active', 1) as $option) {
+            $conditions = $option->getConditions();
+        }
+
+        return $conditions;
+    }
 
 }

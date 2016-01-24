@@ -2,6 +2,7 @@
 
 namespace Devrtips\Listr\Filter\Options;
 
+use ReflectionClass;
 use ArrayAccess as PHPArrayAccess;
 use Devrtips\Listr\Support\ArrayAccess;
 
@@ -45,10 +46,31 @@ abstract class AbstractOption implements PHPArrayAccess
 
     }
 
-    public function getDefaultValue()
+    public function getDefaultValue($column_suffix = '')
     {
-        $defaultValue = (!is_null($param = $this->parameters->getFilterParam($this->name))) ? $param : $this->settings['default'];
+        $defaultValue = (!is_null($param = $this->parameters->getFilterParam($this->name . $column_suffix))) ? $param : $this->settings['default'];
 
         return (is_numeric($defaultValue)) ? (float) $defaultValue : $defaultValue;
+    }
+
+    public function getConditions()
+    {
+        $value = $this->getDefaultValue();
+
+        if ($value == null || $value == 'any') {
+            return null;
+        }
+
+        return [
+            'cols' => $this->settings['columns'],
+            'value' => $value,
+            'type' => $this->getType()
+        ];
+    }
+
+    protected function getType()
+    {
+        $reflect = new ReflectionClass($this);
+        return $reflect->getShortName();
     }
 }
