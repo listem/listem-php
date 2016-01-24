@@ -6,11 +6,10 @@ use Devrtips\Listr\Filter\Filter;
 
 class Conditions
 {
+
     public static function formatConditions(array $conditions)
     {
         $formatted = array();
-        // echo '<pre>';
-        // print_r($conditions); exit;
 
         foreach (array_filter($conditions) as $condition) {
 
@@ -48,6 +47,7 @@ class Conditions
     public static function getConditionString($condition, $conditionString)
     {
         $innerConditions = [];
+        
         foreach ($condition['cols'] as $col) {
 
             $replace = array(':column' => $col);

@@ -11,20 +11,20 @@ use Devrtips\Listr\Parameter\ParameterInterface;
 class Filter extends Collection
 {
 
-	const STRING = 'String';
-	const STRING_CONTAINS = 'StringContains';
-	const STRING_EQUALS = 'StringEquals';
-	const STRING_BEGINS_WITH = 'StringBeginsWith';
-	const STRING_ENDS_WITH = 'StringEndsWith';
+    const STRING = 'String';
+    const STRING_CONTAINS = 'StringContains';
+    const STRING_EQUALS = 'StringEquals';
+    const STRING_BEGINS_WITH = 'StringBeginsWith';
+    const STRING_ENDS_WITH = 'StringEndsWith';
 
-	const DATE = 'Date';
-	const DATE_BETWEEN = 'DateBetween';
-	const DATE_BEFORE = 'DateBefore';
-	const DATE_AFTER = 'DateAfter';
+    const DATE = 'Date';
+    const DATE_BETWEEN = 'DateBetween';
+    const DATE_BEFORE = 'DateBefore';
+    const DATE_AFTER = 'DateAfter';
 
-	const ENUM = 'Enum';
-	const ENUM_SELECT = 'EnumSelect';
-	const ENUM_INPUT = 'EnumInput';
+    const ENUM = 'Enum';
+    const ENUM_SELECT = 'EnumSelect';
+    const ENUM_INPUT = 'EnumInput';
 
     /**
      * @var string
@@ -47,7 +47,7 @@ class Filter extends Collection
     protected $options;
 
     public function __construct($name, array $settings, ParameterInterface $parameters)
-    {   
+    {
         $this->name = $name;
         $this->options = $this->buildFilterOptions($settings, $parameters);
         $this->label = new Label($settings['label']);
@@ -55,7 +55,7 @@ class Filter extends Collection
 
     /**
      * Returns the default option for this filter
-     * 
+     *
      * @return Html\Elems\Label
      */
     public function getLabel()
@@ -65,7 +65,7 @@ class Filter extends Collection
 
     /**
      * Returns the default option for this filter
-     * 
+     *
      * @return Devrtips\Listr\Filter\Options\OptionInterface
      */
     public function getFormElem()
@@ -78,8 +78,8 @@ class Filter extends Collection
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @return string
      */
     public function renderLabel()
@@ -88,7 +88,7 @@ class Filter extends Collection
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function renderFormElem()
@@ -98,7 +98,7 @@ class Filter extends Collection
 
     /**
      * Returns the options available for this filter
-     * 
+     *
      * @return Filter\Option[]
      */
     public function getOptions()
@@ -133,9 +133,6 @@ class Filter extends Collection
     public function setDefault($defaultValue)
     {
         foreach ($this->options as $option) {
-
-        // echo '<pre>', print_r($option['defaultValue'], true);
-        // exit;
             // Todo: check if option implements Devrtips\Listr\Filter\Options\EnumInterface
             switch (get_class($option)) {
                 case 'Devrtips\Listr\Filter\Options\EnumSelect':
@@ -154,13 +151,13 @@ class Filter extends Collection
     }
 
     protected function buildFilterOptions($settings, $parameters)
-	{
-		$options = array();
+    {
+        $options = array();
 
-		switch ($settings['type']) {
+        switch ($settings['type']) {
             case self::STRING:
                 // Specify the default option type for this category (self::STRING) of options
-                $defaultOption = self::STRING_CONTAINS; 
+                $defaultOption = self::STRING_CONTAINS;
                 $options[] = $this->buildOption(self::STRING_CONTAINS, $defaultOption, $settings, $parameters);
                 $options[] = $this->buildOption(self::STRING_EQUALS, $defaultOption, $settings, $parameters);
                 $options[] = $this->buildOption(self::STRING_EQUALS, $defaultOption, $settings, $parameters);
@@ -179,20 +176,20 @@ class Filter extends Collection
             default:
                 $options[] = $this->buildOption($settings['type'], $settings['type'], $settings, $parameters);
                 break;
-		}
+        }
 
-		return new Collection($options);
-	}
+        return new Collection($options);
+    }
 
-	protected function buildOption($type, $defaultOption, $settings, $parameters)
-	{
+    protected function buildOption($type, $defaultOption, $settings, $parameters)
+    {
         // Todo: Throw exception if filter not found
-		$class = "Devrtips\Listr\Filter\Options\\" . $type;
+        $class = "Devrtips\Listr\Filter\Options\\" . $type;
         $active = ($type == $defaultOption);
         $name = $settings['name'];
 
-		return new $class($name, $active, $settings, $parameters);
-	}
+        return new $class($name, $active, $settings, $parameters);
+    }
 
     public function getConditions()
     {
@@ -204,5 +201,4 @@ class Filter extends Collection
 
         return $conditions;
     }
-
 }

@@ -48,7 +48,7 @@ class Collection implements PHPArrayAccess, Countable, IteratorAggregate
      */
     public function where($key, $value)
     {
-        $items = array_filter($this->items, function($item) use ($key, $value) {
+        $items = array_filter($this->items, function ($item) use ($key, $value) {
             return isset($item[$key]) && $item[$key] == $value;
         });
 
@@ -62,7 +62,7 @@ class Collection implements PHPArrayAccess, Countable, IteratorAggregate
      */
     public function toArray()
     {
-       return (array) $this->items;
+        return (array) $this->items;
     }
 
     /**
@@ -85,5 +85,4 @@ class Collection implements PHPArrayAccess, Countable, IteratorAggregate
     {
         return new ArrayIterator($this->items);
     }
-
 }
