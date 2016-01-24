@@ -2,6 +2,7 @@
 
 namespace Devrtips\Listr\Support;
 
+use Exception;
 use Devrtips\Listr\Filter\Filter;
 
 class Config extends Collection
@@ -42,7 +43,7 @@ class Config extends Collection
         $enums = (isset($settings['enums'])) ? $settings['enums'] : array();
 
         if (!isset($settings['label']) || empty($settings['label'])) {
-            throw new \Exception("Label needed for filter '{$filterName}'.");
+            throw new Exception("Label needed for filter '{$filterName}'.");
         }
 
         $placeholder = (isset($settings['placeholder'])) ? $settings['placeholder'] : $settings['label'];

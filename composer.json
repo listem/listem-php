@@ -10,9 +10,17 @@
     "require": {
         "php": ">=5.4.0"
     },
+    "require-dev": {
+        "phpunit/phpunit": "~5.1"
+    },
     "autoload": {
         "psr-4": {
             "Devrtips\\Listr\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": { 
+        	"Devrtips\\Listr\\Tests\\": "test/"
         }
     },
     "license": "mit",
