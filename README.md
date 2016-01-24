@@ -1,6 +1,6 @@
 # Listr
 
-Listr is an easy to use (but highly customizable) data sorting and filtering module for PHP >5.3, which can be used for data lists/tables/grids, reports or APIs.
+Listr is an easy to use (but highly customizable) data sorting and filtering module for PHP >= 5.4, which can be used for data lists/tables/grids, reports or APIs.
 
 
 ## Installation via Composer
