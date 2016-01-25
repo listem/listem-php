@@ -86,5 +86,24 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(\Devrtips\Listr\Filter\Options\EnumInput::$DEFAULT_OPTIONS, $enums);
     }
-    
+
+    public function testCanSetDefaultValueDynamically()
+    {
+        
+    }
+
+    public function testCanSetEnumsDynamically()
+    {
+        
+    }
+
+    public function testCannotSetEnumsDynamicallyForNonEnumTypes()
+    {
+        
+    }
+
+    public function testCanSetDefaultEnumDynamically()
+    {
+        
+    }
 }

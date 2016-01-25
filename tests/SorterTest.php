@@ -9,8 +9,8 @@ class SorterTest extends \PHPUnit_Framework_TestCase
 {
     use Setup;
 
-    public function testGetFiltersGroup()
+    public function testGetSortersGroup()
     {
-    	
+
     }
 }

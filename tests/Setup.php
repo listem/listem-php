@@ -14,10 +14,10 @@ trait Setup
                 'content' => array('label' => 'Content', 'column' => ['content', 'summary']),
                 'created_at' => array('label' => 'Created On', 'type' => Filter::DATE),
                 'state'    => array(
-                    'label' => 'State', 
-                    'type' => Filter::ENUM_INPUT, 
+                    'label' => 'State',
+                    'type' => Filter::ENUM_INPUT,
                     'enums' => array(
-                        1 => 'Active', 
+                        1 => 'Active',
                         0 => 'Draft'
                     )
                 ),
@@ -44,4 +44,5 @@ trait Setup
         Listr::setConfig($this->blogConfig);
 
         $this->filters = Listr::getFilters('blog');
-    }}
+    }
+}
