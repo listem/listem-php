@@ -10,7 +10,7 @@ use Devrtips\Listr\Conditions\Conditions;
 class Filter extends Collection
 {
 
-    protected $entity; 
+    protected $entity;
 
     public function __construct($entity)
     {
@@ -30,7 +30,7 @@ class Filter extends Collection
     public function getFilter($filter)
     {
         try {
-            return $this->where('name', $filter)->first();   
+            return $this->where('name', $filter)->first();
         } catch (\Exception $e) {
             throw new OutOfBoundsException("Filter '{$filter}' does not exist in '{$this->entity}'.");
         }

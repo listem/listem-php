@@ -31,7 +31,11 @@ $config = array(
 
         'created_at' => array('label' => 'Created On', 'type' => Filter::DATE),
 
-        'state'    => array('label' => 'State', 'type' => Filter::ENUM_INPUT, 'enums' => array (1 => 'Active', 0 => 'Draft')),
+        'state'    => array(
+        	'label' => 'State', 
+        	'type' => Filter::ENUM_INPUT, 
+        	'enums' => array (1 => 'Active', 0 => 'Draft')), 
+        	'default' => null
 
         // Enum values for this filter needs to be set dynamically
         'category'    => array('label' => 'Category', 'type' => Filter::ENUM_SELECT)
@@ -39,7 +43,7 @@ $config = array(
 );
 
 // Initialize Listr by passing your configurations array.
-// This should be done in a service provider or initially one time at bootstrap
+// This should be done in a service provider or initially one time at bootstrap.
 Listr::setConfig($config);
 
 // Get enums from the database,
@@ -48,8 +52,8 @@ $categories = Categories::all()->lists('name', 'id');
 // Second argument of setEnums() is the text shown for the 'all' option.
 $filters->getFilter('category')->setEnums($categories, 'All Categories');
 
-$filters = Listr::getFilters('users');
-$sorters = Listr::getSorters('users');
+$filters = Listr::getFilters('blog');
+$sorters = Listr::getSorters('blog');
 ```
 
 Pass to your view and render.
@@ -89,9 +93,9 @@ Pass to your view and render.
 
 ## Filter Types
 
-These are the available filter types that should be used when using a filter. These are constants defined in `Devrtips\Listr\filter` so they should be used in the form of `Devrtips\Listr\filter::STRING`. 
+These are the available filter types that should be used when initializing a filter. These are constants defined in `Devrtips\Listr\filter` so they should be used in the form of `Devrtips\Listr\filter::STRING`. 
 
-Note: If no filter is given when registering filters, `STRING` type will be used by default.  
+Note: If no filter is specified by you when registering a filter, `STRING` type will be used by default.  
 
 
 | Filter Type        | Description | HTML |

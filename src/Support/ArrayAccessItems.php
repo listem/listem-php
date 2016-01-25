@@ -25,5 +25,4 @@ trait ArrayAccessItems
     {
         return isset($this->items[$offset]) ? $this->items[$offset] : null;
     }
-
 }

@@ -48,5 +48,4 @@ trait ArrayAccess
     {
         return isset($this->{$offset}) ? $this->{$offset} : null;
     }
-
 }

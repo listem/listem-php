@@ -8,13 +8,13 @@ class EnumInput extends AbstractOption
 {
     protected $enums = array();
 
-    protected static $DEFAULT_OPTIONS = array(
-        'any' => 'Any', 
-        1 => 'Active', 
+    public static $DEFAULT_OPTIONS = array(
+        'any' => '',
+        1 => 'Active',
         0 => 'Inactive'
     );
 
-   	protected function boot()
+    protected function boot()
     {
         $this->enums = self::$DEFAULT_OPTIONS;
 

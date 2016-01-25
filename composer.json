@@ -20,7 +20,7 @@
     },
     "autoload-dev": {
         "psr-4": { 
-        	"Devrtips\\Listr\\Tests\\": "test/"
+        	"Devrtips\\Listr\\Tests\\": "tests/"
         }
     },
     "license": "mit",

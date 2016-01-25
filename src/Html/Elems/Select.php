@@ -49,6 +49,11 @@ Html;
         $this->enums = $enums;
     }
 
+    public function getEnums()
+    {
+        return $this->enums;
+    }
+
     public function setDefault($defaultValue)
     {
         $this->defaultValue = $defaultValue;
