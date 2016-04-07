@@ -16,10 +16,12 @@ class EnumInput extends AbstractOption
 
     public function getInputs()
     {
-        $this->enums = self::$DEFAULT_OPTIONS;
-
-        if (isset($this->settings['enums']) && !empty($this->settings['enums'])) {
-            $this->enums = array('any' => '') + $this->settings['enums'];
+        if (empty($this->enums)) {
+            if (isset($this->settings['enums']) && !empty($this->settings['enums'])) {
+                $this->enums = array('any' => '') + $this->settings['enums'];
+            } else {
+                $this->enums = self::$DEFAULT_OPTIONS;
+            }
         }
 
         return $this->generateInputs();
