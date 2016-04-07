@@ -6,8 +6,8 @@ use Devrtips\Listr\Html\Elems\Textbox;
 
 class StringEquals extends AbstractOption
 {
-    protected function boot()
+    public function getInputs()
     {
-        $this->inputs[] = new Textbox($this->name, $this->getDefaultValue());
+        return [new Textbox($this->name, $this->getDefaultValue())];
     }
 }

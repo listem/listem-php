@@ -6,7 +6,7 @@ use ReflectionClass;
 use ArrayAccess as PHPArrayAccess;
 use Devrtips\Listr\Support\ArrayAccess;
 
-abstract class AbstractOption implements PHPArrayAccess
+abstract class AbstractOption implements PHPArrayAccess, OptionInterface
 {
     use ArrayAccess;
 
@@ -14,8 +14,7 @@ abstract class AbstractOption implements PHPArrayAccess
     protected $active = false;
     protected $settings;
     protected $parameters;
-    
-    protected $inputs = array();
+    protected $renderCallbacks = array();
 
     public function __construct($name, $active = false, $settings, $parameters)
     {
@@ -23,22 +22,28 @@ abstract class AbstractOption implements PHPArrayAccess
         $this->active = $active;
         $this->settings = $settings;
         $this->parameters = $parameters;
-
-        $this->boot();
     }
-
-    abstract protected function boot();
 
     public function render()
     {
         $output = '';
 
         // Concat all inputs belonging to this filter option
-        foreach ($this->inputs as $input) {
+        foreach ($this->getInputs() as $input) {
+            
+            foreach ($this->renderCallbacks as $callback) {
+                $callback($input);
+            }
+
             $output .= $input->render();
         }
 
         return $output;
+    }
+
+    public function addRenderCallback($callback)
+    {
+        $this->renderCallbacks[] = $callback;
     }
 
     public function getParams()
