@@ -81,13 +81,13 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Filter type defaults to string
-     * 
+     *
      * @depends testColumnNameDefaultsToFilterKey
      */
     public function testFilterTypeDefaultsToString($titleFilterOption)
     {
         $this->assertInstanceOf(
-            \Devrtips\Listr\Filter\Options\StringContains::class, 
+            \Devrtips\Listr\Filter\Options\StringContains::class,
             $titleFilterOption
         );
     }
@@ -119,7 +119,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
             ->getEnums();
 
         $this->assertEquals(
-            \Devrtips\Listr\Filter\Options\EnumInput::$DEFAULT_OPTIONS, 
+            \Devrtips\Listr\Filter\Options\EnumInput::$DEFAULT_OPTIONS,
             $enums
         );
     }

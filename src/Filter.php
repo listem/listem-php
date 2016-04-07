@@ -40,7 +40,7 @@ class Filter extends Collection
         
     /**
      * Return conditions string.
-     * 
+     *
      * @return string
      */
     public function getConditions()

@@ -16,7 +16,7 @@ abstract class AbstractOption implements PHPArrayAccess, OptionInterface
     protected $parameters;
     protected $renderCallbacks = array();
 
-    public function __construct($name, $active = false, $settings, $parameters)
+    public function __construct($name, $active, $settings, $parameters)
     {
         $this->name = $name;
         $this->active = $active;
@@ -30,7 +30,6 @@ abstract class AbstractOption implements PHPArrayAccess, OptionInterface
 
         // Concat all inputs belonging to this filter option
         foreach ($this->getInputs() as $input) {
-            
             foreach ($this->renderCallbacks as $callback) {
                 $callback($input);
             }

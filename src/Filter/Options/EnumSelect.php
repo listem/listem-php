@@ -9,12 +9,12 @@ class EnumSelect extends AbstractOption
     protected $enums = array();
 
     protected static $DEFAULT_OPTIONS = array(
-        'any' => '', 
-        1 => 'Active', 
+        'any' => '',
+        1 => 'Active',
         0 => 'Inactive'
     );
 
-   	public function getInputs()
+    public function getInputs()
     {
         if (empty($this->enums)) {
             if (isset($this->settings['enums']) && !empty($this->settings['enums'])) {

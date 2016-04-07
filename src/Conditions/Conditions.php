@@ -13,7 +13,6 @@ class Conditions
 
         foreach (array_filter($conditions) as $options) {
             foreach (array_filter($options) as $condition) {
-
                 switch ($condition['type']) {
                     case Filter::STRING_CONTAINS:
                         $formatted[] = self::getConditionString($condition, "`:column` LIKE '%:value%'");
@@ -51,7 +50,6 @@ class Conditions
         $innerConditions = [];
         
         foreach ($condition['cols'] as $col) {
-
             $replace = array(':column' => $col);
             
             if (is_array($condition['value'])) {

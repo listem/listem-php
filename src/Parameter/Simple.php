@@ -20,28 +20,27 @@ class Simple extends AbstractParameter
         $this->params = $filters;
     }
 
-	public function getFilterName($entityName)
-	{
-		return strtolower($entityName);
-	}
+    public function getFilterName($entityName)
+    {
+        return strtolower($entityName);
+    }
 
-	public function getSorterName()
-	{
-		
-	}
+    public function getSorterName()
+    {
+        
+    }
 
-	public function getFilterParam($inputName)
-	{
-		if (isset($this->params[$inputName])) {
+    public function getFilterParam($inputName)
+    {
+        if (isset($this->params[$inputName])) {
             return $this->params[$inputName];
         }
 
         return null;
-	}
+    }
 
-	public function getSorterParam()
-	{
-		
-	}
-
+    public function getSorterParam()
+    {
+        
+    }
 }
