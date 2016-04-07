@@ -1,5 +1,7 @@
 # Listr
 
+[![Build Status](https://travis-ci.org/devrtips/listr.svg?branch=master)](https://travis-ci.org/devrtips/listr)
+
 Listr is an easy to use (but highly customizable) data sorting and filtering module for PHP >= 5.4, which can be used for data lists/tables/grids, reports or APIs.
 
 

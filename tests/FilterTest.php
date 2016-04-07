@@ -14,7 +14,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetFiltersGroup()
     {
-        $this->assertInstanceOf(\Devrtips\Listr\Filter::class, $this->filters);
+        $this->assertInstanceOf('Devrtips\Listr\Filter', $this->filters);
     }
 
     /**
@@ -35,7 +35,10 @@ class FilterTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetFilter()
     {
-        $this->assertInstanceOf(Filter::class, $this->filters->getFilter('title'));
+        $this->assertInstanceOf(
+            'Devrtips\Listr\Filter\Filter', 
+            $this->filters->getFilter('title')
+        );
     }
 
     /**
@@ -87,7 +90,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
     public function testFilterTypeDefaultsToString($titleFilterOption)
     {
         $this->assertInstanceOf(
-            \Devrtips\Listr\Filter\Options\StringContains::class,
+            'Devrtips\Listr\Filter\Options\StringContains',
             $titleFilterOption
         );
     }
