@@ -11,34 +11,36 @@ class Conditions
     {
         $formatted = array();
 
-        foreach (array_filter($conditions) as $condition) {
+        foreach (array_filter($conditions) as $options) {
+            foreach (array_filter($options) as $condition) {
 
-            switch ($condition['type']) {
-                case Filter::STRING_CONTAINS:
-                    $formatted[] = self::getConditionString($condition, "`:column` LIKE '%:value%'");
-                    break;
-                case Filter::STRING_BEGINS_WITH:
-                    $formatted[] = self::getConditionString($condition, "`:column` LIKE ':value%'");
-                    break;
-                case Filter::STRING_ENDS_WITH:
-                    $formatted[] = self::getConditionString($condition, "`:column` LIKE '%:value'");
-                    break;
-                case Filter::DATE_BETWEEN:
-                    $formatted[] = self::getConditionString($condition, "`:column` >= ':value_from' AND `:column` <= ':value_to'");
-                    break;
-                case Filter::DATE_BEFORE:
-                    $formatted[] = self::getConditionString($condition, "`:column` <= ':value'");
-                    break;
-                case Filter::DATE_AFTER:
-                    $formatted[] = self::getConditionString($condition, "`:column` >= ':value'");
-                    break;
-                case Filter::STRING_EQUALS:
-                case Filter::ENUM_SELECT:
-                case Filter::ENUM_INPUT:
-                    $formatted[] = self::getConditionString($condition, "`:column` = ':value'");
-                    break;
+                switch ($condition['type']) {
+                    case Filter::STRING_CONTAINS:
+                        $formatted[] = self::getConditionString($condition, "`:column` LIKE '%:value%'");
+                        break;
+                    case Filter::STRING_BEGINS_WITH:
+                        $formatted[] = self::getConditionString($condition, "`:column` LIKE ':value%'");
+                        break;
+                    case Filter::STRING_ENDS_WITH:
+                        $formatted[] = self::getConditionString($condition, "`:column` LIKE '%:value'");
+                        break;
+                    case Filter::DATE_BETWEEN:
+                        $formatted[] = self::getConditionString($condition, "`:column` >= ':value_from' AND `:column` <= ':value_to'");
+                        break;
+                    case Filter::DATE_BEFORE:
+                        $formatted[] = self::getConditionString($condition, "`:column` <= ':value'");
+                        break;
+                    case Filter::DATE_AFTER:
+                        $formatted[] = self::getConditionString($condition, "`:column` >= ':value'");
+                        break;
+                    case Filter::STRING_EQUALS:
+                    case Filter::ENUM_SELECT:
+                    case Filter::ENUM_INPUT:
+                        $formatted[] = self::getConditionString($condition, "`:column` = ':value'");
+                        break;
+                }
+
             }
-
         }
 
         return implode(' AND ', $formatted);

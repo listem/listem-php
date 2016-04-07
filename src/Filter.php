@@ -11,10 +11,12 @@ class Filter extends Collection
 {
 
     protected $entity;
+    protected $params;
 
     public function __construct($entity)
     {
         $this->entity = $entity;
+        $this->params = new DefaultParameterMethod;
 
         $config = Listr::getConfig();
 
@@ -23,7 +25,7 @@ class Filter extends Collection
         }
 
         foreach ($config[$entity]['filters'] as $name => $filter) {
-            $this->items[] = new Filter\Filter($name, $filter, new DefaultParameterMethod);
+            $this->items[] = new Filter\Filter($name, $filter, $this->params);
         }
     }
 
@@ -36,6 +38,11 @@ class Filter extends Collection
         }
     }
         
+    /**
+     * Return conditions string.
+     * 
+     * @return string
+     */
     public function getConditions()
     {
         $conditions = [];
@@ -44,6 +51,15 @@ class Filter extends Collection
             $conditions[$filter['name']] = $filter->getConditions();
         }
 
-        return Conditions::formatConditions($conditions);
+        $conditionsString = Conditions::formatConditions($conditions);
+
+        return ($conditionsString) ? $conditionsString : true;
+    }
+
+    public function setParams(array $params)
+    {
+        $this->params->setFilters($params);
+
+        return $this;
     }
 }

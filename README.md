@@ -22,7 +22,11 @@ $config = array(
     'blog' => array(
     	'title' => array('label' => 'Title'),
     	// This is identical to the below method of setting a filter
-        // 'title' 	=> array('label' => 'Title', 'column' => 'title', 'type' => Filter::STRING_CONTAINS),
+        // 'title' 	=> array(
+        //   	'label' => 'Title', 
+        //   	'column' => 'title', 
+        //   	'type' => Filter::STRING_CONTAINS
+       	//	),
         // The key is used as the column name (which is `title`),
         // and the filter type is Filter::STRING_CONTAINS by default
         
@@ -31,29 +35,40 @@ $config = array(
 
         'created_at' => array('label' => 'Created On', 'type' => Filter::DATE),
 
-        'state'    => array(
+        'state' => array(
         	'label' => 'State', 
         	'type' => Filter::ENUM_INPUT, 
-        	'enums' => array (1 => 'Active', 0 => 'Draft')), 
+        	'enums' => array (1 => 'Active', 0 => 'Draft'), 
         	'default' => null
+    	),
 
         // Enum values for this filter needs to be set dynamically
-        'category'    => array('label' => 'Category', 'type' => Filter::ENUM_SELECT)
+        'category' => array('label' => 'Category', 'type' => Filter::ENUM_SELECT)
     )
 );
 
 // Initialize Listr by passing your configurations array.
-// This should be done in a service provider or initially one time at bootstrap.
+// This is typically done in a service provider or initially one time at bootstrap.
 Listr::setConfig($config);
-
-// Get enums from the database,
-$categories = Categories::all()->lists('name', 'id');
-// and set them dynamically.
-// Second argument of setEnums() is the text shown for the 'all' option.
-$filters->getFilter('category')->setEnums($categories, 'All Categories');
 
 $filters = Listr::getFilters('blog');
 $sorters = Listr::getSorters('blog');
+
+// Populate enum types with dynamic data
+$categories = Categories::all()->lists('name', 'id');
+// [1 => 'General', 2 => 'News', 3 => 'Entertainment']
+// Second argument of setEnums() is the text shown for the 'all' option.
+$filters->getFilter('category')->setEnums($categories, 'All Categories');
+
+// Set the default enum
+$filters->getFilter('state')->setDefault(1);
+
+// Get array of current conditions/inputs set for the filters
+$conditions = $filters->getConditions();
+
+// Get data according to the set conditions
+$blogs = Blog::orderBy('created_at', 'desc');
+$blogs = $blogs->whereRaw($conditions);
 ```
 
 Pass to your view and render.
@@ -91,6 +106,29 @@ Pass to your view and render.
     ...
 ```
 
+## Filter config parameters
+
+Eg: 
+
+```php
+'state' => array(
+    'label' => 'State', 
+    'type' => Filter::ENUM_INPUT, 
+    'enums' => array (1 => 'Active', 0 => 'Draft'), 
+    'default' => null
+)
+```
+
+| Param | Required | Default |Description |
+|---|---|---|---|
+| `column` | No | Defaults to configs array key | `string|array` Name of the database table column. Specify array with multiple column names to match filter against columns with conditional OR. |
+| `label` | Yes | | Display text for the filter. |
+| `type` | No | `Filter::STRING_CONTAINS` | See [Filter Types](#filter-types) section below. |
+| `active` | No | `true` | `Boolean` indicating whether filter should be active. If `false` will be omitted from the filters list when generating the filters Form, or taken into account when generating conditions for the database. |
+| `default` | No | `null` | Default value for the filter. |
+| `enums` | No | | List of enums. Only applies if filter type is an enumerated type.  |
+
+
 ## Filter Types
 
 These are the available filter types that should be used when initializing a filter. These are constants defined in `Devrtips\Listr\filter` so they should be used in the form of `Devrtips\Listr\filter::STRING`. 
@@ -98,8 +136,8 @@ These are the available filter types that should be used when initializing a fil
 Note: If no filter is specified by you when registering a filter, `STRING` type will be used by default.  
 
 
-| Filter Type        | Description | HTML |
-|--------------------|-------------|-------------|
+| Filter Type | Description | HTML        |
+|-------------|-------------|-------------|
 | `STRING` / `STRING_CONTAINS`    | Checks for a match anywhere inside the text (`LIKE '%string%'`) | Text input (`<input type="text" ..`) |
 | `STRING_EQUALS`      | Checks whether text is equal to the input (`= 'string'`) | Text input |
 | `STRING_BEGINS_WITH` | Checks for a match from the beginning of the text (`LIKE 'string%'`) | Text input |

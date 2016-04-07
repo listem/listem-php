@@ -7,10 +7,14 @@ use Devrtips\Listr\Html\Elems\Textbox;
 
 class DateBetween extends AbstractOption
 {   
-    protected function boot()
+    public function getInputs()
     {
-        $this->inputs[] = new Textbox($this->name . '_from', $this->getDefaultValue('_from'));
-        $this->inputs[] = new Textbox($this->name . '_to', $this->getDefaultValue('_to'));
+        $inputs = array();
+
+        $inputs[] = new Textbox($this->name . '_from', $this->getDefaultValue('_from'));
+        $inputs[] = new Textbox($this->name . '_to', $this->getDefaultValue('_to'));
+
+        return $inputs;
     }
 
     public function getConditions()

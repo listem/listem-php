@@ -117,10 +117,6 @@ class Filter extends Collection
             // Todo: check if option implements Devrtips\Listr\Filter\Options\EnumInterface
             switch (get_class($option)) {
                 case 'Devrtips\Listr\Filter\Options\EnumSelect':
-                    foreach ($option['inputs'] as $input) {
-                        $input->setEnums($enums);
-                    }
-                    break;
                 case 'Devrtips\Listr\Filter\Options\EnumInput':
                     $option->setEnums($enums);
                     break;
@@ -136,10 +132,6 @@ class Filter extends Collection
             // Todo: check if option implements Devrtips\Listr\Filter\Options\EnumInterface
             switch (get_class($option)) {
                 case 'Devrtips\Listr\Filter\Options\EnumSelect':
-                    foreach ($option['inputs'] as $input) {
-                        $input->setDefault($defaultValue);
-                    }
-                    break;
                 case 'Devrtips\Listr\Filter\Options\EnumInput':
                     $option->setDefault($defaultValue);
                     break;
@@ -196,7 +188,7 @@ class Filter extends Collection
         $conditions = [];
 
         foreach ($this->options->where('active', 1) as $option) {
-            $conditions = $option->getConditions();
+            $conditions[] = $option->getConditions();
         }
 
         return $conditions;

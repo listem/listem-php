@@ -14,15 +14,17 @@ class EnumInput extends AbstractOption
         0 => 'Inactive'
     );
 
-    protected function boot()
+    public function getInputs()
     {
-        $this->enums = self::$DEFAULT_OPTIONS;
-
-        if (isset($this->settings['enums']) && !empty($this->settings['enums'])) {
-            $this->enums = array('any' => '') + $this->settings['enums'];
+        if (empty($this->enums)) {
+            if (isset($this->settings['enums']) && !empty($this->settings['enums'])) {
+                $this->enums = array('any' => '') + $this->settings['enums'];
+            } else {
+                $this->enums = self::$DEFAULT_OPTIONS;
+            }
         }
-        
-        $this->generateInputs();
+
+        return $this->generateInputs();
     }
 
     public function setDefault($defaultValue)
@@ -32,20 +34,16 @@ class EnumInput extends AbstractOption
         }
 
         $this->settings['default'] = $defaultValue;
-
-        $this->generateInputs();
     }
 
     public function setEnums(array $enums)
     {
         $this->enums = $enums;
-        
-        $this->generateInputs();
     }
 
     protected function generateInputs()
     {
-        $this->inputs = array();
+        $inputs = array();
 
         foreach ($this->enums as $value => $text) {
             $value = (is_numeric($value)) ? (float) $value : $value;
@@ -53,7 +51,9 @@ class EnumInput extends AbstractOption
 
             $selected = ($value === $defaultValue);
 
-            $this->inputs[] = new Radio($this->name, $text, $value, $selected);
+            $inputs[] = new Radio($this->name, $text, $value, $selected);
         }
+
+        return $inputs;
     }
 }

@@ -15,8 +15,8 @@ class Bootstrap3
         $this->filter->getLabel()
                 ->addClass('control-label')
                 ->addClass('col-sm-4');
-
-        foreach ($this->filter->getFormElem()['inputs'] as $input) {
+                
+        $this->filter->getFormElem()->addRenderCallback(function ($input) {
             switch (get_class($input)) {
                 case 'Devrtips\Listr\Html\Elems\Textbox':
                 case 'Devrtips\Listr\Html\Elems\Select':
@@ -31,7 +31,7 @@ class Bootstrap3
                     $input->label->addClass('radio-inline');
                     break;
             }
-        }
+        });
     }
 
     public function renderLabel()
