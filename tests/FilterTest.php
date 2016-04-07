@@ -9,11 +9,17 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 {
     use Setup;
     
+    /**
+     * Get filters group
+     */
     public function testGetFiltersGroup()
     {
         $this->assertInstanceOf(\Devrtips\Listr\Filter::class, $this->filters);
     }
 
+    /**
+     * Cannot get uninitialized filters group
+     */
     public function testCannotGetUninitializedFiltersGroup()
     {
         $this->setExpectedException(
@@ -24,11 +30,17 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $filters = Listr::getFilters('users');
     }
 
+    /**
+     * Get filter
+     */
     public function testGetFilter()
     {
         $this->assertInstanceOf(Filter::class, $this->filters->getFilter('title'));
     }
 
+    /**
+     * Cannot get uninitialized filter
+     */
     public function testCannotGetUninitializedFilter()
     {
         $this->setExpectedException(
@@ -39,6 +51,9 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $this->filters->getFilter('deleted');
     }
 
+    /**
+     * Filter cannot be created without label
+     */
     public function testFilterCannotBeCreatedWithoutLabel()
     {
         $this->setExpectedException(
@@ -49,6 +64,9 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         Listr::setConfig($this->configWithFilterWithoutLabel);
     }
 
+    /**
+     * Column name defaults to filter key
+     */
     public function testColumnNameDefaultsToFilterKey()
     {
         $filterKey = 'title';
@@ -62,29 +80,48 @@ class FilterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Filter type defaults to string
+     * 
      * @depends testColumnNameDefaultsToFilterKey
      */
     public function testFilterTypeDefaultsToString($titleFilterOption)
     {
-        $this->assertInstanceOf(\Devrtips\Listr\Filter\Options\StringContains::class, $titleFilterOption);
+        $this->assertInstanceOf(
+            \Devrtips\Listr\Filter\Options\StringContains::class, 
+            $titleFilterOption
+        );
     }
 
+    /**
+     * Multiple columns can be set per filter
+     */
     public function testMultipleColumnsCanBeSet()
     {
         $contentFilter = $this->filters->getFilter('content');
-        $filterColumns = $contentFilter['options']->where('active', 1)->first()['settings']['columns'];
+        $filterColumns = $contentFilter['options']->where('active', 1)
+            ->first()['settings']['columns'];
 
         $configColumns = $this->blogConfig['blog']['filters']['content']['column'];
 
+        $this->assertGreaterThan(1, count($filterColumns));
         $this->assertEquals($configColumns, $filterColumns);
     }
 
+    /**
+     * Default enums are set if no enums are given
+     */
     public function testDefaultEnumsSetIfNotGiven()
     {
         $categoryFilter = $this->filters->getFilter('category');
-        $enums = $categoryFilter['options']->where('active', 1)->first()['inputs'][0]->getEnums();
+        $enums = $categoryFilter['options']->where('active', 1)
+            ->first()
+            ->getInputs()[0]
+            ->getEnums();
 
-        $this->assertEquals(\Devrtips\Listr\Filter\Options\EnumInput::$DEFAULT_OPTIONS, $enums);
+        $this->assertEquals(
+            \Devrtips\Listr\Filter\Options\EnumInput::$DEFAULT_OPTIONS, 
+            $enums
+        );
     }
 
     public function testCanSetDefaultValueDynamically()
