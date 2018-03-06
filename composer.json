@@ -23,6 +23,6 @@
         	"Devrtips\\Listr\\Tests\\": "tests/"
         }
     },
-    "license": "mit",
+    "license": "MIT",
     "minimum-stability": "stable"
 }
