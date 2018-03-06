@@ -1,15 +1,15 @@
-# Listr
+# Listem
 
 [![Build Status](https://travis-ci.org/devrtips/listr.svg?branch=master)](https://travis-ci.org/devrtips/listr)
 
-Listr is an easy to use (but highly customizable) data sorting and filtering module for PHP >= 5.4, which can be used for data lists/tables/grids, reports or APIs.
+Listem is an easy to use (but highly customizable) data sorting and filtering module for PHP >= 5.4, which can be used for data lists/tables/grids, reports or APIs.
 
 
 ## Installation via Composer
 
 Make sure you have [Composer installed](https://getcomposer.org/doc/00-intro.md#globally) and simply run the below command from your project root.
 
-`composer require devrtips/listr`
+`composer require listem/listem-php`
 
 ## Usage
 

@@ -1,5 +1,5 @@
 {
-    "name": "devrtips/listr",
+    "name": "listem/listem-php",
     "description": "Listr is an easy to use (but highly customizable) data sorting and filtering module for PHP, that can be used for data lists/tables/grids, reports or APIs.",
     "authors": [
         {
