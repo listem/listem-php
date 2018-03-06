@@ -2,10 +2,11 @@
 
 namespace Devrtips\Listr\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Devrtips\Listr\Listr;
 use Devrtips\Listr\Filter\Filter;
 
-class FilterTest extends \PHPUnit_Framework_TestCase
+class FilterTest extends TestCase
 {
     use Setup;
     
@@ -22,7 +23,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
      */
     public function testCannotGetUninitializedFiltersGroup()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'OutOfBoundsException',
             "Filter group 'users' does not exist."
         );
@@ -46,7 +47,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
      */
     public function testCannotGetUninitializedFilter()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'OutOfBoundsException',
             "Filter 'deleted' does not exist in 'blog'."
         );
@@ -59,7 +60,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterCannotBeCreatedWithoutLabel()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Exception',
             "Label needed for filter 'content'."
         );
@@ -127,9 +128,28 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testDefaultCanBeSetDynamicallyForEnumTypesOnly()
+    {
+         $this->expectException(
+            'Exception',
+            'Default values can be set for enum types only.'
+        );
+
+        $filter = $this->filters->getFilter('title')
+            ->setDefault('test');
+    }
+
     public function testCanSetDefaultValueDynamically()
     {
-        
+        $expectedValue = 'test';
+
+        $filter = $this->filters->getFilter('state')
+            ->setDefault($expectedValue);
+
+        $filter = $filter['options']->where('active', 1)
+            ->first();
+
+        $this->assertEquals($filter['settings']['default'], $expectedValue);
     }
 
     public function testCanSetEnumsDynamically()

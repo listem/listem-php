@@ -2,17 +2,28 @@
 
 namespace Devrtips\Listr\Tests\Conditions;
 
+use PHPUnit\Framework\TestCase;
 use Devrtips\Listr\Tests\Setup;
 use Devrtips\Listr\Listr;
 use Devrtips\Listr\Filter\Filter;
 
-class FilterTest extends \PHPUnit_Framework_TestCase
+class FilterTest extends TestCase
 {
     use Setup;
 
+    /**
+     * @beforeClass
+     */
+    public static function setUpQueryParamsForConditions()
+    {
+        $_GET = [
+            'title' => 'Test Title'
+        ];
+    }
+
     public function testIfNoParametersAreSetNoConditionsAreReturned()
     {
-        
+        $conditions = $this->filters->getConditions();
     }
 
     public function testIfMultipleConditionsInMySqlAreSeperatedByAnd()
@@ -27,6 +38,6 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 
     public function testIfFilterHasMultipleColumnsConditionWillHaveThemSeperatedByOr()
     {
-        
+
     }
 }

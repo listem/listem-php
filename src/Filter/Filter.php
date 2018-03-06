@@ -2,6 +2,7 @@
 
 namespace Devrtips\Listr\Filter;
 
+use Exception;
 use ReflectionClass;
 use Devrtips\Listr\Filter\Option;
 use Devrtips\Listr\Html\Elems\Label;
@@ -135,6 +136,8 @@ class Filter extends Collection
                 case 'Devrtips\Listr\Filter\Options\EnumInput':
                     $option->setDefault($defaultValue);
                     break;
+                default:
+                    throw new Exception('Default values can be set for enum types only.');
             }
             
         }

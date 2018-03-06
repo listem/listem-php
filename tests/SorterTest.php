@@ -2,10 +2,11 @@
 
 namespace Devrtips\Listr\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Devrtips\Listr\Listr;
 use Devrtips\Listr\Filter\Filter;
 
-class SorterTest extends \PHPUnit_Framework_TestCase
+class SorterTest extends TestCase
 {
     use Setup;
 
