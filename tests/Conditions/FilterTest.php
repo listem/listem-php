@@ -17,7 +17,8 @@ class FilterTest extends TestCase
     public static function setUpQueryParamsForConditions()
     {
         $_GET = [
-            'title' => 'Test Title'
+            'title' => 'Test Title',
+            'content' => 'Sample content'
         ];
     }
 
@@ -28,7 +29,8 @@ class FilterTest extends TestCase
 
     public function testIfMultipleConditionsInMySqlAreSeperatedByAnd()
     {
-        
+        $conditions = $this->filters->getConditions();
+        $this->assertRegexp('/AND/', $conditions);
     }
 
     public function testIfNoParametersAreSetOnlyDefaultValuesAreReturnedInConditions()
@@ -38,6 +40,7 @@ class FilterTest extends TestCase
 
     public function testIfFilterHasMultipleColumnsConditionWillHaveThemSeperatedByOr()
     {
-
+        $conditions = $this->filters->getConditions();
+        $this->assertRegexp('/OR/', $conditions);
     }
 }

@@ -44,5 +44,7 @@ trait Setup
         Listr::setConfig($this->blogConfig);
 
         $this->filters = Listr::getFilters('blog');
+
+        $this->sorters = Listr::getSorters('blog');
     }
 }

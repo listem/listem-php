@@ -121,6 +121,8 @@ class Filter extends Collection
                 case 'Devrtips\Listr\Filter\Options\EnumInput':
                     $option->setEnums($enums);
                     break;
+                default:
+                    throw new Exception('Dynamically enums values can be set for enum types only.');
             }
         }
 

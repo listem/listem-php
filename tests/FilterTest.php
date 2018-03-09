@@ -154,16 +154,53 @@ class FilterTest extends TestCase
 
     public function testCanSetEnumsDynamically()
     {
+        $categories = [1 => 'General', 2 => 'News', 3 => 'Entertainment'];
         
+        $this->filters->getFilter('category')->setEnums($categories, 'All Categories');
+        $enums = $this->filters->getFilter('category')['options']->where('active', 1)
+            ->first()
+            ->getInputs()[0]
+            ->getEnums();
+
+        unset($enums['any']);
+        $this->assertEquals(array_values($categories), array_values($enums));
+
     }
 
     public function testCannotSetEnumsDynamicallyForNonEnumTypes()
     {
-        
+        $this->expectException(
+            'Exception',
+            "Dynamically enums values can be set for enum types only."
+        );
+
+        $categories = [1 => 'General', 2 => 'News', 3 => 'Entertainment'];
+
+        $this->filters->getFilter('title')->setEnums($categories, 'All Categories');
     }
 
     public function testCanSetDefaultEnumDynamically()
     {
-        
+        $categoryFilter = $this->filters->getFilter('category');
+        $defaultEnums = $categoryFilter['options']->where('active', 1)
+            ->first()
+            ->getInputs()[0]
+            ->getEnums();
+
+        $this->assertEquals(
+            \Devrtips\Listr\Filter\Options\EnumInput::$DEFAULT_OPTIONS,
+            $defaultEnums
+        );
+
+        $categories = [1 => 'General', 2 => 'News'];
+
+        $categoryFilter->setEnums($categories, 'All Categories');
+        $newtEnums = $categoryFilter['options']->where('active', 1)
+            ->first()
+            ->getInputs()[0]
+            ->getEnums();
+
+        unset($newtEnums['any']);
+        $this->assertEquals(array_values($categories), array_values($newtEnums));
     }
 }
