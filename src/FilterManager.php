@@ -15,7 +15,7 @@ class FilterManager
     protected $dbDriver;
 
     public function __construct($config, $dbDriver, $params)
-    {   
+    {
         $this->params = $params;
         $this->dbDriver = $dbDriver;
 

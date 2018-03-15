@@ -6,3 +6,4 @@ abstract class DriverAdapter implements DriverInterface
 {
 
 }
+
