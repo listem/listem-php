@@ -1,10 +1,11 @@
 <?php
 
-namespace Devrtips\Listr\Tests;
+namespace Listem\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Devrtips\Listr\Listr;
-use Devrtips\Listr\Filter\Filter;
+use Listem;
+use Listem\Conditions\Database\Drivers\Mysql as MySQL;
+use Listem\Tests\Setup;
 
 class SorterTest extends TestCase
 {
