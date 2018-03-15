@@ -1,9 +1,9 @@
 <?php
 
-namespace Devrtips\Listr\Support;
+namespace Listem\Support;
 
 use Exception;
-use Devrtips\Listr\Filter\Filter;
+use Listem\Filter\Filter;
 
 class Config extends Collection
 {
@@ -16,13 +16,11 @@ class Config extends Collection
 
     public function __construct(array $config)
     {
-
-        foreach ($config as &$entity) {
-            foreach ($entity['filters'] as $key => &$filter) {
-                $filter = $this->prepareFilters($key, $filter);
-            }
+        foreach ($config['filters'] as $key => &$filter) {
+            // filter modify and assign to itself
+            $filter = $this->prepareFilters($key, $filter);
         }
-
+        
         $this->items = $config;
     }
 

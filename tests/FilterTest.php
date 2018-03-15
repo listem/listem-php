@@ -1,21 +1,31 @@
 <?php
 
-namespace Devrtips\Listr\Tests;
+namespace Listem\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Devrtips\Listr\Listr;
-use Devrtips\Listr\Filter\Filter;
+use Listem\ListEntity;
+use Listem\Filter\Filter;
+use Listem\Parameter\QueryString;
+use Listem\Conditions\Database\Drivers\Mysql as MySQL;
 
 class FilterTest extends TestCase
 {
     use Setup;
-    
+       
     /**
      * Get filters group
      */
     public function testGetFiltersGroup()
     {
-        $this->assertInstanceOf('Devrtips\Listr\Filter', $this->filters);
+        
+        $_GET = $this->paramData;
+
+        $params = new QueryString();
+
+        $list = new ListEntity($this->config, new MySQL, $params);
+        $this->filters = $list->getFilters();
+
+        $this->assertInstanceOf('Listem\FilterManager', $this->filters);
     }
 
     /**
@@ -23,12 +33,20 @@ class FilterTest extends TestCase
      */
     public function testCannotGetUninitializedFiltersGroup()
     {
+        $_GET = $this->paramData;
+
+        $params = new QueryString();
+
+        $list = new ListEntity($this->config, new MySQL, $params);
+        $this->filters = $list->getFilters();
+
         $this->expectException(
-            'OutOfBoundsException',
-            "Filter group 'users' does not exist."
+            'Exception',
+            'Default values can be set for enum types only.'
         );
 
-        $filters = Listr::getFilters('users');
+        $expectedValue = 'John Doe';
+        $this->filters->setDefaultValue('name', 'John Doe');
     }
 
     /**
@@ -36,9 +54,16 @@ class FilterTest extends TestCase
      */
     public function testGetFilter()
     {
+        $_GET = $this->paramData;
+
+        $params = new QueryString();
+
+        $list = new ListEntity($this->config, new MySQL, $params);
+        $this->filters = $list->getFilters();
+
         $this->assertInstanceOf(
-            'Devrtips\Listr\Filter\Filter', 
-            $this->filters->getFilter('title')
+            'Listem\Filter\Filter', 
+            $this->filters->getFilter('name')
         );
     }
 
@@ -47,9 +72,16 @@ class FilterTest extends TestCase
      */
     public function testCannotGetUninitializedFilter()
     {
+        $_GET = $this->paramData;
+
+        $params = new QueryString();
+
+        $list = new ListEntity($this->config, new MySQL, $params);
+        $this->filters = $list->getFilters();
+
         $this->expectException(
             'OutOfBoundsException',
-            "Filter 'deleted' does not exist in 'blog'."
+            "Filter 'deleted' does not exist."
         );
 
         $this->filters->getFilter('deleted');
@@ -65,7 +97,11 @@ class FilterTest extends TestCase
             "Label needed for filter 'content'."
         );
 
-        Listr::setConfig($this->configWithFilterWithoutLabel);
+        $_GET = $this->paramData;
+
+        $params = new QueryString();
+
+        $list = new ListEntity($this->configWithFilterWithoutLabel, new MySQL, $params);
     }
 
     /**
@@ -73,14 +109,20 @@ class FilterTest extends TestCase
      */
     public function testColumnNameDefaultsToFilterKey()
     {
-        $filterKey = 'title';
-        $titleFilter = $this->filters->getFilter($filterKey);
-        $titleFilterOption = $titleFilter['options']->where('active', 1)->first();
-        $columnName = $titleFilterOption['settings']['columns'][0];
+        $_GET = $this->paramData;
 
+        $params = new QueryString();
+
+        $list = new ListEntity($this->config, new MySQL, $params);
+        $filters = $list->getFilters();
+
+        $filterKey = 'name';
+        $nameFilter = $filters->getFilter($filterKey);
+        $nameFilterOption = $nameFilter['options']->where('active', 1)->first();
+        $columnName = $nameFilterOption['settings']['columns'][0];
         $this->assertEquals($filterKey, $columnName);
 
-        return $titleFilterOption;
+        return $nameFilterOption;
     }
 
     /**
@@ -88,11 +130,11 @@ class FilterTest extends TestCase
      *
      * @depends testColumnNameDefaultsToFilterKey
      */
-    public function testFilterTypeDefaultsToString($titleFilterOption)
+    public function testFilterTypeDefaultsToString($nameFilterOption)
     {
         $this->assertInstanceOf(
-            'Devrtips\Listr\Filter\Options\StringContains',
-            $titleFilterOption
+            'Listem\Filter\Options\StringContains',
+            $nameFilterOption
         );
     }
 
@@ -101,11 +143,17 @@ class FilterTest extends TestCase
      */
     public function testMultipleColumnsCanBeSet()
     {
-        $contentFilter = $this->filters->getFilter('content');
+        $_GET = $this->paramData;
+        $params = new QueryString();
+
+        $list = new ListEntity($this->config, new MySQL, $params);
+        $filters = $list->getFilters();
+
+        $contentFilter = $filters->getFilter('content');
         $filterColumns = $contentFilter['options']->where('active', 1)
             ->first()['settings']['columns'];
 
-        $configColumns = $this->blogConfig['blog']['filters']['content']['column'];
+        $configColumns = $this->config['filters']['content']['column'];
 
         $this->assertGreaterThan(1, count($filterColumns));
         $this->assertEquals($configColumns, $filterColumns);
@@ -116,14 +164,20 @@ class FilterTest extends TestCase
      */
     public function testDefaultEnumsSetIfNotGiven()
     {
-        $categoryFilter = $this->filters->getFilter('category');
+        $_GET = $this->paramData;
+        $params = new QueryString();
+
+        $list = new ListEntity($this->config, new MySQL, $params);
+        $filters = $list->getFilters();
+
+        $categoryFilter = $filters->getFilter('category');
         $enums = $categoryFilter['options']->where('active', 1)
             ->first()
             ->getInputs()[0]
             ->getEnums();
 
         $this->assertEquals(
-            \Devrtips\Listr\Filter\Options\EnumInput::$DEFAULT_OPTIONS,
+            \Listem\Filter\Options\EnumInput::$DEFAULT_OPTIONS,
             $enums
         );
     }
@@ -135,15 +189,27 @@ class FilterTest extends TestCase
             'Default values can be set for enum types only.'
         );
 
-        $filter = $this->filters->getFilter('title')
+        $_GET = $this->paramData;
+        $params = new QueryString();
+
+        $list = new ListEntity($this->config, new MySQL, $params);
+        $filters = $list->getFilters();
+
+        $filter = $filters->getFilter('title')
             ->setDefault('test');
     }
 
     public function testCanSetDefaultValueDynamically()
     {
+        $_GET = $this->paramData;
+        $params = new QueryString();
+
+        $list = new ListEntity($this->config, new MySQL, $params);
+        $filters = $list->getFilters();
+
         $expectedValue = 'test';
 
-        $filter = $this->filters->getFilter('state')
+        $filter = $filters->getFilter('state')
             ->setDefault($expectedValue);
 
         $filter = $filter['options']->where('active', 1)
@@ -154,16 +220,40 @@ class FilterTest extends TestCase
 
     public function testCanSetEnumsDynamically()
     {
+        $_GET = $this->paramData;
+        $params = new QueryString();
+
+        $list = new ListEntity($this->config, new MySQL, $params);
+        $filters = $list->getFilters();
+
+        $categories = [1 => 'General', 2 => 'News', 3 => 'Entertainment'];
         
+        $filters->getFilter('category')->setEnums($categories, 'All Categories');
+        $enums = $filters->getFilter('category')['options']
+            ->where('active', 1)
+            ->first()
+            ->getInputs()[0]
+            ->getEnums();
+
+        unset($enums['any']);
+        $this->assertEquals(array_values($categories), array_values($enums));
     }
 
     public function testCannotSetEnumsDynamicallyForNonEnumTypes()
     {
-        
-    }
+        $this->expectException(
+            'Exception',
+            "Dynamically enums values can be set for enum types only."
+        );
 
-    public function testCanSetDefaultEnumDynamically()
-    {
-        
+        $_GET = $this->paramData;
+        $params = new QueryString();
+
+        $list = new ListEntity($this->config, new MySQL, $params);
+        $filters = $list->getFilters();
+
+        $categories = [1 => 'General', 2 => 'News', 3 => 'Entertainment'];
+
+        $filters->getFilter('title')->setEnums($categories, 'All Categories');
     }
 }

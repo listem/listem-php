@@ -1,6 +1,6 @@
 <?php
 
-namespace Devrtips\Listr\Html\Support;
+namespace Listem\Html\Support;
 
 class Attribute
 {

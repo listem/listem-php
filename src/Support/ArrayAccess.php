@@ -1,6 +1,6 @@
 <?php
 
-namespace Devrtips\Listr\Support;
+namespace Listem\Support;
 
 trait ArrayAccess
 {

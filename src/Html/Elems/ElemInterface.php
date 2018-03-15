@@ -1,6 +1,6 @@
 <?php
 
-namespace Devrtips\Listr\Html\Elems;
+namespace Listem\Html\Elems;
 
 interface ElemInterface
 {

@@ -1,13 +1,17 @@
 <?php
 
-namespace Devrtips\Listr\Parameter;
+namespace Listem\Parameter;
+use Exception;
 
-class Simple extends AbstractParameter
+class QueryString extends AbstractParameter
 {
     protected $params = [];
 
     public function __construct()
     {
+        // if (empty($_GET)) {
+        //     throw new Exception('No Parameters are set.');            
+        // }
         $this->params = $_GET;
     }
 

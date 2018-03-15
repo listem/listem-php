@@ -1,13 +1,13 @@
 <?php
 
-namespace Devrtips\Listr\Filter;
+namespace Listem\Filter;
 
 use Exception;
 use ReflectionClass;
-use Devrtips\Listr\Filter\Option;
-use Devrtips\Listr\Html\Elems\Label;
-use Devrtips\Listr\Support\Collection;
-use Devrtips\Listr\Parameter\ParameterInterface;
+use Listem\Filter\Option;
+use Listem\Html\Elems\Label;
+use Listem\Support\Collection;
+use Listem\Parameter\ParameterInterface;
 
 class Filter extends Collection
 {
@@ -38,12 +38,12 @@ class Filter extends Collection
     protected $label;
 
     /**
-     * @var Devrtips\Listr\Collection\Collection
+     * @var Listem\Collection\Collection
      */
     protected $config;
 
     /**
-     * @var Devrtips\Listr\Collection\Collection
+     * @var Listem\Collection\Collection
      */
     protected $options;
 
@@ -67,7 +67,7 @@ class Filter extends Collection
     /**
      * Returns the default option for this filter
      *
-     * @return Devrtips\Listr\Filter\Options\OptionInterface
+     * @return Listem\Filter\Options\OptionInterface
      */
     public function getFormElem()
     {
@@ -115,12 +115,14 @@ class Filter extends Collection
         }
 
         foreach ($this->options as $option) {
-            // Todo: check if option implements Devrtips\Listr\Filter\Options\EnumInterface
+            // Todo: check if option implements Listem\Filter\Options\EnumInterface
             switch (get_class($option)) {
-                case 'Devrtips\Listr\Filter\Options\EnumSelect':
-                case 'Devrtips\Listr\Filter\Options\EnumInput':
+                case 'Listem\Filter\Options\EnumSelect':
+                case 'Listem\Filter\Options\EnumInput':
                     $option->setEnums($enums);
                     break;
+                default:
+                    throw new Exception('Dynamically enums values can be set for enum types only.');
             }
         }
 
@@ -130,10 +132,10 @@ class Filter extends Collection
     public function setDefault($defaultValue)
     {
         foreach ($this->options as $option) {
-            // Todo: check if option implements Devrtips\Listr\Filter\Options\EnumInterface
+            // Todo: check if option implements Listem\Filter\Options\EnumInterface
             switch (get_class($option)) {
-                case 'Devrtips\Listr\Filter\Options\EnumSelect':
-                case 'Devrtips\Listr\Filter\Options\EnumInput':
+                case 'Listem\Filter\Options\EnumSelect':
+                case 'Listem\Filter\Options\EnumInput':
                     $option->setDefault($defaultValue);
                     break;
                 default:
@@ -179,7 +181,7 @@ class Filter extends Collection
     protected function buildOption($type, $defaultOption, $settings, $parameters)
     {
         // Todo: Throw exception if filter not found
-        $class = "Devrtips\Listr\Filter\Options\\" . $type;
+        $class = "Listem\Filter\Options\\" . $type;
         $active = ($type == $defaultOption);
         $name = $settings['name'];
 
