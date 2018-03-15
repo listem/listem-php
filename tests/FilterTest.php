@@ -40,7 +40,7 @@ class FilterTest extends TestCase
         $list = new ListEntity($this->config, new MySQL, $params);
         $this->filters = $list->getFilters();
 
-        $this->expectException(
+        $this->setExpectedException(
             'Exception',
             'Default values can be set for enum types only.'
         );
@@ -79,7 +79,7 @@ class FilterTest extends TestCase
         $list = new ListEntity($this->config, new MySQL, $params);
         $this->filters = $list->getFilters();
 
-        $this->expectException(
+        $this->setExpectedException(
             'OutOfBoundsException',
             "Filter 'deleted' does not exist."
         );
@@ -92,7 +92,7 @@ class FilterTest extends TestCase
      */
     public function testFilterCannotBeCreatedWithoutLabel()
     {
-        $this->expectException(
+        $this->setExpectedException(
             'Exception',
             "Label needed for filter 'content'."
         );
@@ -184,7 +184,7 @@ class FilterTest extends TestCase
 
     public function testDefaultCanBeSetDynamicallyForEnumTypesOnly()
     {
-         $this->expectException(
+         $this->setExpectedException(
             'Exception',
             'Default values can be set for enum types only.'
         );
@@ -195,7 +195,7 @@ class FilterTest extends TestCase
         $list = new ListEntity($this->config, new MySQL, $params);
         $filters = $list->getFilters();
 
-        $filter = $filters->getFilter('title')
+        $filter = $filters->getFilter('name')
             ->setDefault('test');
     }
 
@@ -241,7 +241,7 @@ class FilterTest extends TestCase
 
     public function testCannotSetEnumsDynamicallyForNonEnumTypes()
     {
-        $this->expectException(
+        $this->setExpectedException(
             'Exception',
             "Dynamically enums values can be set for enum types only."
         );
@@ -254,6 +254,7 @@ class FilterTest extends TestCase
 
         $categories = [1 => 'General', 2 => 'News', 3 => 'Entertainment'];
 
-        $filters->getFilter('title')->setEnums($categories, 'All Categories');
+        $filters->getFilter('name')
+            ->setEnums($categories, 'All Categories');
     }
 }
