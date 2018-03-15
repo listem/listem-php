@@ -1,8 +1,8 @@
 <?php
 
-namespace Devrtips\Listr\Filter\Options;
+namespace Listem\Filter\Options;
 
-use Devrtips\Listr\Html\Elems\Select;
+use Listem\Html\Elems\Select;
 
 class EnumSelect extends AbstractOption
 {

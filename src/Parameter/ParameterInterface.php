@@ -1,6 +1,6 @@
 <?php
 
-namespace Devrtips\Listr\Parameter;
+namespace Listem\Parameter;
 
 interface ParameterInterface
 {

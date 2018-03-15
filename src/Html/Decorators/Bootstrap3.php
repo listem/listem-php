@@ -1,8 +1,8 @@
 <?php
 
-namespace Devrtips\Listr\Html\Decorators;
+namespace Listem\Html\Decorators;
 
-use Devrtips\Listr\Html\Elems\Label as Div;
+use Listem\Html\Elems\Label as Div;
 
 class Bootstrap3
 {
@@ -18,16 +18,16 @@ class Bootstrap3
                 
         $this->filter->getFormElem()->addRenderCallback(function ($input) {
             switch (get_class($input)) {
-                case 'Devrtips\Listr\Html\Elems\Textbox':
-                case 'Devrtips\Listr\Html\Elems\Select':
+                case 'Listem\Html\Elems\Textbox':
+                case 'Listem\Html\Elems\Select':
                     $input->addClass('form-control');
                     break;
 
-                case 'Devrtips\Listr\Html\Elems\Checkbox':
+                case 'Listem\Html\Elems\Checkbox':
                     $input->label->addClass('checkbox-inline');
                     break;
 
-                case 'Devrtips\Listr\Html\Elems\Radio':
+                case 'Listem\Html\Elems\Radio':
                     $input->label->addClass('radio-inline');
                     break;
             }

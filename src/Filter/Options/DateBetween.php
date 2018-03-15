@@ -1,9 +1,9 @@
 <?php
 
-namespace Devrtips\Listr\Filter\Options;
+namespace Listem\Filter\Options;
 
-use Devrtips\Listr\Filter\Filter;
-use Devrtips\Listr\Html\Elems\Textbox;
+use Listem\Filter\Filter;
+use Listem\Html\Elems\Textbox;
 
 class DateBetween extends AbstractOption
 {   

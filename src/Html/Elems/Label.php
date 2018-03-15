@@ -1,8 +1,8 @@
 <?php
 
-namespace Devrtips\Listr\Html\Elems;
+namespace Listem\Html\Elems;
 
-use Devrtips\Listr\Html\Support\Attribute;
+use Listem\Html\Support\Attribute;
 
 class Label extends AbstractElem
 {

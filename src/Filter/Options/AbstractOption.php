@@ -1,10 +1,10 @@
 <?php
 
-namespace Devrtips\Listr\Filter\Options;
+namespace Listem\Filter\Options;
 
 use ReflectionClass;
 use ArrayAccess as PHPArrayAccess;
-use Devrtips\Listr\Support\ArrayAccess;
+use Listem\Support\ArrayAccess;
 
 abstract class AbstractOption implements PHPArrayAccess, OptionInterface
 {

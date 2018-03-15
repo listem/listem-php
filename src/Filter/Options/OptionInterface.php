@@ -1,6 +1,6 @@
 <?php
 
-namespace Devrtips\Listr\Filter\Options;
+namespace Listem\Filter\Options;
 
 interface OptionInterface
 {

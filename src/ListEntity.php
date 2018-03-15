@@ -3,42 +3,47 @@
 /**
  * @author      Malitta Nanayakkara <malitta@gmail.com>
  * @copyright   2015 Malitta Nanayakkara
- * @link        http://devr.tips/packages/listr
+ * @link        https://listem.co
  * @license     http://opensource.org/licenses/MIT
  */
 
-namespace Devrtips\Listr;
+namespace Listem;
 
-use Devrtips\Listr\Filter as FilterBuilder;
-use Devrtips\Listr\Support\Collection;
-use Devrtips\Listr\Support\Config;
+use Listem\FilterManager;
+use Listem\Support\Collection;
+use Listem\Support\Config;
 
 /**
- * Listr
+ * List
  *
- * Listr provides an easy API to generate filters and sorters for data lists and
+ * Listem provides an easy API to generate filters and sorters for data lists and
  * converts the filtering / sorting parameters into query objects which
  * enables you to easily query any type of database with ease.
  *
  * This acts as a factory class for the underlying Filter and Sorter classes
  * and provides facades to some methods belonging those classes for easy access.
  *
- * @package Devrtips\Listr
+ * @package Listem
  */
-class Listr
+class ListEntity
 {
     /**
-     * @var Devrtips\Listr\Support\Config
+     * @var Listem\Support\Config
      */
-    public static $config;
+    private $config;
 
     /**
-     * @var Devrtips\Listr\Filter
+     * @var Listem\Filter
+     */
+    private $filter;
+
+    /**
+     * @var Listem\Filter
      */
     public static $filters = array();
 
     /**
-     * @var Devrtips\Listr\Sorter
+     * @var Listem\Sorter
      */
     public static $sorters = array();
 
@@ -47,36 +52,37 @@ class Listr
      *
      * @param array $config
      */
-    public static function setConfig(array $config)
+    public function __construct($config, $dbDriver, $params)
     {
-        self::$config = new Config($config);
-    }
-
-    public static function getConfig()
-    {
-        return self::$config;
+        $this->config = new Config($config);
+        $this->filter = new FilterManager($this->config, $dbDriver, $params);
     }
 
     /**
      * Initialize filters for the given entity.
      *
-     * @param string $entity
-     * @return \Devrtips\Listr\Filter
+     * @return Listem\Support\Config
      */
-    public static function getFilters($entity)
+    public function getConfig()
     {
-        if (!isset(self::$filters[$entity])) {
-            self::$filters[$entity] = new FilterBuilder($entity);
-        }
+        return $this->config;
+    }
 
-        return self::$filters[$entity];
+    /**
+     * Initialize filters for the given entity.
+     *
+     * @return Listem\Filter
+     */
+    public function getFilters()
+    {
+        return $this->filter;
     }
 
     /**
      * Initialize sorters for the given entity.
      *
      * @param string $entity
-     * @return \Devrtips\Listr\Sorter[]
+     * @return Listem\Sorter[]
      */
     public function getSorters($entity)
     {
@@ -90,12 +96,12 @@ class Listr
 
     /**
      * TODO: helper
-     * Get other (non listr) query string parameters to be set as hidden inputs
+     * Get other (non Listem) query string parameters to be set as hidden inputs
      * to be passed in to the next request when the form is submitted.
      *
      * @return string
      */
-    public function nonListrQueryParameters()
+    public function nonListemQueryParameters()
     {
         return Helpers\Html::queryStringParams();
     }
