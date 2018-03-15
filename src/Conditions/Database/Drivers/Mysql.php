@@ -76,5 +76,4 @@ class Mysql extends DriverAdapter
         $conditionString = "`:column` = ':value'";
         return $this->generateCondition($condition, $conditionString);
     }
-
 }
