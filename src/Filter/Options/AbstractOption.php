@@ -65,7 +65,7 @@ abstract class AbstractOption implements PHPArrayAccess, OptionInterface
     {
         $value = $this->getDefaultValue();
 
-        if ($value == null || $value == 'any') {
+        if ($value === null || $value === '' || $value === false  || $value === 'any') {
             return null;
         }
 

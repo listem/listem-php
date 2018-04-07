@@ -9,7 +9,6 @@ class EnumInput extends AbstractOption
     protected $enums = array();
 
     public static $DEFAULT_OPTIONS = array(
-        'any' => '',
         1 => 'Active',
         0 => 'Inactive'
     );
@@ -18,7 +17,7 @@ class EnumInput extends AbstractOption
     {
         if (empty($this->enums)) {
             if (isset($this->settings['enums']) && !empty($this->settings['enums'])) {
-                $this->enums = array('any' => '') + $this->settings['enums'];
+                $this->enums = $this->settings['enums'];
             } else {
                 $this->enums = self::$DEFAULT_OPTIONS;
             }
