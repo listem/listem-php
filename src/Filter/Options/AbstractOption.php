@@ -31,7 +31,7 @@ abstract class AbstractOption implements PHPArrayAccess, OptionInterface
         // Concat all inputs belonging to this filter option
         foreach ($this->getInputs() as $input) {
             foreach ($this->renderCallbacks as $callback) {
-                $callback($input);
+                $callback($input, $this);
             }
 
             $output .= $input->render();
