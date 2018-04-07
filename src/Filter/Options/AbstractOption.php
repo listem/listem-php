@@ -52,7 +52,11 @@ abstract class AbstractOption implements PHPArrayAccess, OptionInterface
 
     public function getDefaultValue($column_suffix = '')
     {
-        $defaultValue = (!is_null($param = $this->parameters->getFilterParam($this->name . $column_suffix))) ? $param : $this->settings['default'];
+        $param = $this->parameters->getFilterParam($this->name . $column_suffix);
+
+        $defaultValue = (!is_null($param))
+            ? $param 
+            : $this->settings['default'];
 
         return (is_numeric($defaultValue)) ? (float) $defaultValue : $defaultValue;
     }
