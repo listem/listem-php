@@ -31,7 +31,7 @@ abstract class AbstractOption implements PHPArrayAccess, OptionInterface
         // Concat all inputs belonging to this filter option
         foreach ($this->getInputs() as $input) {
             foreach ($this->renderCallbacks as $callback) {
-                $callback($input);
+                $callback($input, $this);
             }
 
             $output .= $input->render();
@@ -52,7 +52,11 @@ abstract class AbstractOption implements PHPArrayAccess, OptionInterface
 
     public function getDefaultValue($column_suffix = '')
     {
-        $defaultValue = (!is_null($param = $this->parameters->getFilterParam($this->name . $column_suffix))) ? $param : $this->settings['default'];
+        $param = $this->parameters->getFilterParam($this->name . $column_suffix);
+
+        $defaultValue = (!is_null($param))
+            ? $param 
+            : $this->settings['default'];
 
         return (is_numeric($defaultValue)) ? (float) $defaultValue : $defaultValue;
     }
@@ -61,7 +65,7 @@ abstract class AbstractOption implements PHPArrayAccess, OptionInterface
     {
         $value = $this->getDefaultValue();
 
-        if ($value == null || $value == 'any') {
+        if ($value === null || $value === '' || $value === false  || $value === 'any') {
             return null;
         }
 

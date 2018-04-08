@@ -2,13 +2,16 @@
 
 namespace Listem;
 
+use ArrayIterator;
+use Countable;
+use IteratorAggregate;
 use OutOfBoundsException;
 use Listem\Parameter\Simple as DefaultParameterMethod;
 use Listem\Conditions\ConditionManager;
 use Listem\Support\Collection;
 use Listem\Filter\Filter;
 
-class FilterManager
+class FilterManager implements Countable, IteratorAggregate
 {
     protected $filters;
     protected $params;
@@ -72,5 +75,26 @@ class FilterManager
         $this->params->setFilters($params);
 
         return $this;
+    }
+
+    /**
+     * Return the number of items in the list.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->filters);
+    }
+
+    /**
+     * Implementation of Traversable interface.
+     * Once collection object is inside foreach, protected property $filters will be iterated.
+     *
+     * @return ArrayIterator
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->filters->toArray());
     }
 }

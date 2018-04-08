@@ -36,6 +36,8 @@ class QueryString extends AbstractParameter
 
     public function getFilterParam($inputName)
     {
+        $inputName = str_replace('.', '_', $inputName);
+
         if (isset($this->params[$inputName])) {
             return $this->params[$inputName];
         }
