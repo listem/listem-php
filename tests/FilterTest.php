@@ -175,9 +175,9 @@ class FilterTest extends TestCase
             ->first()
             ->getInputs()[0]
             ->getEnums();
-
+            
         $this->assertEquals(
-            \Listem\Filter\Options\EnumInput::$DEFAULT_OPTIONS,
+            \Listem\Filter\Options\EnumSelect::$DEFAULT_OPTIONS,
             $enums
         );
     }
