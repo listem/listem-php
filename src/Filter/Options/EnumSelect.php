@@ -8,7 +8,7 @@ class EnumSelect extends AbstractOption
 {
     protected $enums = array();
 
-    protected static $DEFAULT_OPTIONS = array(
+    public static $DEFAULT_OPTIONS = array(
         'any' => '',
         1 => 'Active',
         0 => 'Inactive'
