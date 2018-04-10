@@ -13,7 +13,7 @@ trait Setup
             'content' => array('label' => 'Content', 'column' => ['content', 'summary']),
             'created_at' => array('label' => 'Created On', 'type' => Filter::DATE, 'placeholder' => array(
                     'from' => 'from',
-                    'to' => 'to' 
+                    'to' => 'to'
                 )
             ),
             'state'    => array(

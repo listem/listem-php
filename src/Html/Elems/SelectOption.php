@@ -9,7 +9,7 @@ class SelectOption extends AbstractElem
     public function __construct($value, $text, $selected = false)
     {
         $this->attributes = new Attribute;
-    	$this->text = $text;
+        $this->text = $text;
         $this->setAttribute('value', $value);
         $this->setAttribute('selected', ($selected) ? 'selected' : null);            
     }
