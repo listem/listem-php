@@ -44,7 +44,7 @@ class Config extends Collection
             throw new Exception("Label needed for filter '{$filterName}'.");
         }
 
-        $placeholder = (isset($settings['placeholder'])) ? $settings['placeholder'] : $settings['label'];
+        $placeholder = (isset($settings['placeholder'])) ? $settings['placeholder'] : null;
 
         return array(
             'name' => $filterName,
