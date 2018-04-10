@@ -34,12 +34,12 @@ Html;
 
     public function testRenderTextInputWithValue()
     {
-    	$_GET = $this->paramData;
+        $_GET = $this->paramData;
         $list = new ListEntity($this->config, new MySQL, new QueryString);
         $filters = $list->getFilters();
 
-    	$filter = $filters->getFilter('name');
-    	$filter = $filter['options']->where('active', 1)
+        $filter = $filters->getFilter('name');
+        $filter = $filter['options']->where('active', 1)
             ->first();
         
         $filterTextboxHtml = $filter->getInputs()[0]->render();
@@ -48,21 +48,21 @@ Html;
 <input type="text" name="name" value="Sample Name" placeholder="Name"/>\n
 Html;
 
-        $this->assertEquals($filterTextboxHtml, $expectedTextbox);	
+        $this->assertEquals($filterTextboxHtml, $expectedTextbox);  
     }
 
     public function testRenderLabel()
     {
-    	// $_GET = $this->paramData;
+        // $_GET = $this->paramData;
         $list = new ListEntity($this->config, new MySQL, new QueryString);
         $filters = $list->getFilters();
 
-    	$filter = $filters->getFilter('name');
-    	$filterLableHtml = $filter['label']->render();
+        $filter = $filters->getFilter('name');
+        $filterLableHtml = $filter['label']->render();
 
-    	$expectedLableHtml =  <<<Html
+        $expectedLableHtml =  <<<Html
 <label >Title</label>\n
 Html;
-		$this->assertEquals($filterLableHtml, $expectedLableHtml);
+        $this->assertEquals($filterLableHtml, $expectedLableHtml);
     }
 }

@@ -14,7 +14,7 @@ class EnumSelect extends TestCase
     use Setup;
 
     public function testRenderEnumSelect()
-    {    	
+    {       
         $list = new ListEntity($this->config, new MySQL, new QueryString);
         $filters = $list->getFilters();
 
@@ -26,7 +26,7 @@ class EnumSelect extends TestCase
         
         $expectedSelect = <<<Html
 <select name="category">
-	<option value="any"></option>
+    <option value="any"></option>
 <option value="1">Active</option>
 <option value="0">Inactive</option>
 </select>
