@@ -28,5 +28,4 @@ class EnumInput extends TestCase
 Html;
         $this->assertEquals($filterRadioHtml, $expectedRadio);  
     }
-
 }

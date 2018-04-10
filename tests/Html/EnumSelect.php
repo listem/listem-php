@@ -21,9 +21,9 @@ class EnumSelect extends TestCase
         $filter = $filters->getFilter('category');
         $filter = $filter['options']->where('active', 1)
             ->first();
-        
+
         $filterSelectHtml = $filter->getInputs()[0]->render();
-        
+
         $expectedSelect = <<<Html
 <select name="category">
     <option value="any"></option>
@@ -31,7 +31,6 @@ class EnumSelect extends TestCase
 <option value="0">Inactive</option>
 </select>
 Html;
-        $this->assertEquals($filterSelectHtml, $expectedSelect);  
+        $this->assertEquals($filterSelectHtml, $expectedSelect);
     }
-
 }
