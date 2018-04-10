@@ -9,9 +9,13 @@ trait Setup
 {
     public $config = array(
         'filters' => [
-            'name' => array('label' => 'Title'),
+            'name' => array('label' => 'Title', 'placeholder'=> "Name"),
             'content' => array('label' => 'Content', 'column' => ['content', 'summary']),
-            'created_at' => array('label' => 'Created On', 'type' => Filter::DATE),
+            'created_at' => array('label' => 'Created On', 'type' => Filter::DATE, 'placeholder' => array(
+                    'from' => 'from',
+                    'to' => 'to' 
+                )
+            ),
             'state'    => array(
                 'label' => 'State',
                 'type' => Filter::ENUM_INPUT,

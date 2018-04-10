@@ -9,11 +9,30 @@ use Listem\Parameter\QueryString;
 use Listem\Conditions\Database\Drivers\Mysql as MySQL;
 use Listem\Tests\Setup;
 
-class StringContains extends TestCase
+class StringEquals extends TestCase
 {
     use Setup;
 
     public function testRenderTextInput()
+    {
+        $_GET = $this->paramData;
+        $list = new ListEntity($this->config, new MySQL, new QueryString);
+        $filters = $list->getFilters();
+
+        $filter = $filters->getFilter('name');
+        $filter = $filter['options']->where('active', 1)
+            ->first();
+        
+        $filterTextboxHtml = $filter->getInputs()[0]->render();
+        
+        $expectedTextbox =  <<<Html
+<input type="text" name="name" value="Sample Name" placeholder="Name"/>\n
+Html;
+
+        $this->assertEquals($filterTextboxHtml, $expectedTextbox);  
+    }
+
+    public function testRenderTextInputWithValue()
     {
     	$_GET = $this->paramData;
         $list = new ListEntity($this->config, new MySQL, new QueryString);
@@ -26,7 +45,7 @@ class StringContains extends TestCase
         $filterTextboxHtml = $filter->getInputs()[0]->render();
         
         $expectedTextbox =  <<<Html
-<input type="text" name="name" value="Sample Name"/>\n
+<input type="text" name="name" value="Sample Name" placeholder="Name"/>\n
 Html;
 
         $this->assertEquals($filterTextboxHtml, $expectedTextbox);	
@@ -34,7 +53,7 @@ Html;
 
     public function testRenderLabel()
     {
-    	$_GET = $this->paramData;
+    	// $_GET = $this->paramData;
         $list = new ListEntity($this->config, new MySQL, new QueryString);
         $filters = $list->getFilters();
 
