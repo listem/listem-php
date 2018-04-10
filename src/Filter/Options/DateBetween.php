@@ -10,9 +10,10 @@ class DateBetween extends AbstractOption
     public function getInputs()
     {
         $inputs = array();
-
-        $inputs[] = new Textbox($this->name . '_from', $this->getDefaultValue('_from'));
-        $inputs[] = new Textbox($this->name . '_to', $this->getDefaultValue('_to'));
+        $placeholderValues = $this->settings['placeholder'];
+     
+        $inputs[] = new Textbox($this->name . '_from', $this->getDefaultValue('_from'), $placeholderValues['from']);
+        $inputs[] = new Textbox($this->name . '_to', $this->getDefaultValue('_to'), $placeholderValues['to']);
 
         return $inputs;
     }
