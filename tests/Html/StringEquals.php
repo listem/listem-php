@@ -22,9 +22,9 @@ class StringEquals extends TestCase
         $filter = $filters->getFilter('name');
         $filter = $filter['options']->where('active', 1)
             ->first();
-        
+
         $filterTextboxHtml = $filter->getInputs()[0]->render();
-        
+
         $expectedTextbox =  <<<Html
 <input type="text" name="name" value="Sample Name" placeholder="Name"/>\n
 Html;
@@ -41,9 +41,9 @@ Html;
         $filter = $filters->getFilter('name');
         $filter = $filter['options']->where('active', 1)
             ->first();
-        
+
         $filterTextboxHtml = $filter->getInputs()[0]->render();
-        
+
         $expectedTextbox =  <<<Html
 <input type="text" name="name" value="Sample Name" placeholder="Name"/>\n
 Html;
@@ -53,7 +53,6 @@ Html;
 
     public function testRenderLabel()
     {
-        // $_GET = $this->paramData;
         $list = new ListEntity($this->config, new MySQL, new QueryString);
         $filters = $list->getFilters();
 

@@ -14,7 +14,7 @@ class EnumSelect extends TestCase
     use Setup;
 
     public function testRenderEnumSelect()
-    {       
+    {
         $list = new ListEntity($this->config, new MySQL, new QueryString);
         $filters = $list->getFilters();
 

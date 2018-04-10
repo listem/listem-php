@@ -62,6 +62,6 @@ trait Setup
 
     public function setUp()
     {
-        
+
     }
 }

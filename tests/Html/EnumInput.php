@@ -21,11 +21,12 @@ class EnumInput extends TestCase
         $filter = $filters->getFilter('state');
         $filter = $filter['options']->where('active', 1)
             ->first();
-        
+
         $filterRadioHtml = $filter->getInputs()[0]->render();
         $expectedRadio = <<<Html
 <label ><input value="1" type="radio" name="state"/> Active</label>\n
 Html;
-        $this->assertEquals($filterRadioHtml, $expectedRadio);  
+        $this->assertEquals($filterRadioHtml, $expectedRadio);
     }
+    
 }

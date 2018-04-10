@@ -11,13 +11,13 @@ use Listem\Conditions\Database\Drivers\Mysql as MySQL;
 class FilterTest extends TestCase
 {
     use Setup;
-       
+
     /**
      * Get filters group
      */
     public function testGetFiltersGroup()
     {
-        
+
         $_GET = $this->paramData;
 
         $params = new QueryString();
@@ -227,7 +227,7 @@ class FilterTest extends TestCase
         $filters = $list->getFilters();
 
         $categories = [1 => 'General', 2 => 'News', 3 => 'Entertainment'];
-        
+
         $filters->getFilter('category')->setEnums($categories, 'All Categories');
         $enums = $filters->getFilter('category')['options']
             ->where('active', 1)
