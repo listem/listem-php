@@ -26,6 +26,6 @@ class EnumInput extends TestCase
         $expectedRadio = <<<Html
 <label ><input value="1" type="radio" name="state"/> Active</label>\n
 Html;
-        $this->assertEquals($filterRadioHtml, $expectedRadio);  
+        $this->assertEquals($filterRadioHtml, $expectedRadio);
     }
 }
