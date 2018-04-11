@@ -8,6 +8,7 @@ class StringEquals extends AbstractOption
 {
     public function getInputs()
     {
-        return [new Textbox($this->name, $this->getDefaultValue())];
+        $placeholder = $this->settings['placeholder'];
+        return [new Textbox($this->name, $this->getDefaultValue(), $placeholder)];
     }
 }

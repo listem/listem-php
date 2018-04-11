@@ -5,65 +5,65 @@ namespace Listem\Html\Support;
 class Attribute
 {
     protected $attributes = array(
-    	'class' => array()
-	);
+        'class' => array()
+    );
 
     public function setAttribute($attribute, $value)
     {
-    	$this->attributes[$attribute] = ($attribute == 'class') ? [$value] : $value;
+        $this->attributes[$attribute] = ($attribute == 'class') ? [$value] : $value;
 
-    	return $this;
+        return $this;
     }
 
     public function removeAttribute($attribute)
     {
-    	if (isset($this->attributes[$attribute])) {
-    		unset($this->attributes[$attribute]);	
-    	}
-    	
-    	return $this;
+        if (isset($this->attributes[$attribute])) {
+            unset($this->attributes[$attribute]);   
+        }
+        
+        return $this;
     }
 
     public function addClass($class)
     {
 
 
-    	if (!array_search($class, $this->attributes['class'])) {
-    		$this->attributes['class'][] = $class;	
-    	}
+        if (!array_search($class, $this->attributes['class'])) {
+            $this->attributes['class'][] = $class;  
+        }
 
-    	return $this;
+        return $this;
     }
 
     public function removeClass($class)
     {
-    	if ((isset ($this->attributes['class'])) && ($key = array_search($class, $this->attributes['class'])) ) {
-		    unset($this->attributes['class'][$key]);
-		}
+        if ((isset ($this->attributes['class'])) && ($key = array_search($class, $this->attributes['class'])) ) {
+            unset($this->attributes['class'][$key]);
+        }
 
-		return $this;
+        return $this;
     }
 
     public function __toString()
     {
-    	$preparedAttributes = array_filter($this->attributes, function($val) {
+        $preparedAttributes = array_filter($this->attributes, function($val) {
             return !($val === '' || $val === null);
         });
 
-		if (isset($preparedAttributes['class']) &&
+        if (isset($preparedAttributes['class']) &&
             is_array($preparedAttributes['class']) &&
             count($classes = array_filter($preparedAttributes['class']))) {
-			$preparedAttributes['class'] = implode(' ', $classes);
+            $preparedAttributes['class'] = implode(' ', $classes);
         
-		} else {
-			unset($preparedAttributes['class']);
-		}
+        } else {
+            unset($preparedAttributes['class']);
+        }
 
 
-		foreach($preparedAttributes as $attribute => &$value) {
-			$value = "{$attribute}=\"{$value}\"";
-		}
+        foreach($preparedAttributes as $attribute => &$value) {
+            $value = "{$attribute}=\"{$value}\"";
+        }
 
-		return implode(' ', $preparedAttributes);
+        return implode(' ', $preparedAttributes);
     }
 }

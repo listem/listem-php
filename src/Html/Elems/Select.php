@@ -20,11 +20,11 @@ class Select extends AbstractElem
 
     public function render()
     {
-    	$optionElems = implode("\n", $this->getOptionElems());
+        $optionElems = implode("\n", $this->getOptionElems());
 
         return <<<Html
 <select {$this->attributes}>
-	{$optionElems}
+    {$optionElems}
 </select>
 Html;
     }

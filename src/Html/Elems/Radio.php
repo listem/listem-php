@@ -23,12 +23,12 @@ class Radio extends AbstractElem
 
     public function render()
     {
-		$optionHtml = <<<Html
+        $optionHtml = <<<Html
 <input {$this->attributes}/>
 Html;
 
         // Place input inside the label
-		$this->label->prependText($optionHtml);
+        $this->label->prependText($optionHtml);
 
         return $this->label->render();
     }

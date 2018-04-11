@@ -18,7 +18,7 @@ class FilterTest extends TestCase
         $params = new QueryString();
         $list = new ListEntity($this->configWithFilterWithOutDefault, new MySQL, $params);
         $filters = $list->getFilters();
-        
+
         $conditions = $filters->getConditions();
         $this->assertTrue($conditions);
     }
@@ -41,9 +41,9 @@ class FilterTest extends TestCase
         $params = new QueryString();
         $list = new ListEntity($this->configWithFilterWithDefault, new MySQL, $params);
         $filters = $list->getFilters();
-        
+
         $conditions = $filters->getConditions();
-        
+
         $this->assertEquals("(`name` LIKE '%Sample Name%')" , $conditions);  
     }
 
@@ -54,7 +54,7 @@ class FilterTest extends TestCase
         $params = new QueryString();
         $list = new ListEntity($this->config, new MySQL, $params);
         $filters = $list->getFilters();
-        
+
         $conditions = $filters->getConditions();
         $this->assertRegexp('/OR/', $conditions);
     }
