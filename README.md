@@ -1,6 +1,7 @@
 # Listem
 
 [![Build Status](https://travis-ci.org/listem/listem-php.svg?branch=master)](https://travis-ci.org/listem/listem-php)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flistem%2Flistem-php.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Flistem%2Flistem-php?ref=badge_shield)
 
 Listem is an easy to use (but highly customizable) data sorting and filtering module for PHP >= 5.4, which can be used for data lists/tables/grids, reports or APIs.
 
@@ -101,3 +102,5 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flistem%2Flistem-php.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Flistem%2Flistem-php?ref=badge_large)
